@@ -1,0 +1,460 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 51;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0D682046269DE34C00945767 /* yolo-v3-tiny-416x416-face-detector.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 0D682045269DE34C00945767 /* yolo-v3-tiny-416x416-face-detector.mlmodel */; };
+		0D682048269DE35200945767 /* class_mapping.json in Resources */ = {isa = PBXBuildFile; fileRef = 0D682047269DE35200945767 /* class_mapping.json */; };
+		0D712D8D269F8E490031D2E3 /* yolo_model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D712D8C269F8E490031D2E3 /* yolo_model.swift */; };
+		0D712D8F26A02BE90031D2E3 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D712D8E26A02BE90031D2E3 /* ActivityIndicator.swift */; };
+		1007AEDB05DE2E0D1B2679CC /* Pods_ALTOAI_Detect.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7165750EEFD0D4FBC986A65C /* Pods_ALTOAI_Detect.framework */; };
+		89BBF9BD268E9AE400FA46B6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 89BBF9BC268E9AE400FA46B6 /* Assets.xcassets */; };
+		89BBF9D3268E9B6100FA46B6 /* UIImage+CVPixelBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BBF9C8268E9B6100FA46B6 /* UIImage+CVPixelBuffer.swift */; };
+		89BBF9D4268E9B6100FA46B6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BBF9C9268E9B6100FA46B6 /* AppDelegate.swift */; };
+		89BBF9D5268E9B6100FA46B6 /* BoundingBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BBF9CA268E9B6100FA46B6 /* BoundingBox.swift */; };
+		89BBF9D7268E9B6100FA46B6 /* YOLO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BBF9CC268E9B6100FA46B6 /* YOLO.swift */; };
+		89BBF9D8268E9B6100FA46B6 /* CVPixelBuffer+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BBF9CD268E9B6100FA46B6 /* CVPixelBuffer+Helpers.swift */; };
+		89BBF9D9268E9B6100FA46B6 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BBF9CE268E9B6100FA46B6 /* Helpers.swift */; };
+		89BBF9DA268E9B6100FA46B6 /* VideoCapture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BBF9CF268E9B6100FA46B6 /* VideoCapture.swift */; };
+		89BBF9DB268E9B6100FA46B6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BBF9D0268E9B6100FA46B6 /* ViewController.swift */; };
+		89BBF9EC268E9F6200FA46B6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89BBF9EB268E9F6200FA46B6 /* Main.storyboard */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		0D682045269DE34C00945767 /* yolo-v3-tiny-416x416-face-detector.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = "yolo-v3-tiny-416x416-face-detector.mlmodel"; sourceTree = "<group>"; };
+		0D682047269DE35200945767 /* class_mapping.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = class_mapping.json; sourceTree = "<group>"; };
+		0D712D8C269F8E490031D2E3 /* yolo_model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = yolo_model.swift; sourceTree = "<group>"; };
+		0D712D8E26A02BE90031D2E3 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
+		59CFA31D914711661177F13E /* Pods-ARA-CoreML.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ARA-CoreML.release.xcconfig"; path = "Target Support Files/Pods-ARA-CoreML/Pods-ARA-CoreML.release.xcconfig"; sourceTree = "<group>"; };
+		5B5F16DCF5ACE4A2BB15E825 /* Pods-ALTOAI-Detect.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ALTOAI-Detect.release.xcconfig"; path = "Target Support Files/Pods-ALTOAI-Detect/Pods-ALTOAI-Detect.release.xcconfig"; sourceTree = "<group>"; };
+		7165750EEFD0D4FBC986A65C /* Pods_ALTOAI_Detect.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ALTOAI_Detect.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		89BBF9B5268E9AE300FA46B6 /* ALTOAI-Detect.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ALTOAI-Detect.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		89BBF9BC268E9AE400FA46B6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		89BBF9BF268E9AE400FA46B6 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		89BBF9C1268E9AE400FA46B6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		89BBF9C8268E9B6100FA46B6 /* UIImage+CVPixelBuffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+CVPixelBuffer.swift"; sourceTree = "<group>"; };
+		89BBF9C9268E9B6100FA46B6 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		89BBF9CA268E9B6100FA46B6 /* BoundingBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoundingBox.swift; sourceTree = "<group>"; };
+		89BBF9CC268E9B6100FA46B6 /* YOLO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YOLO.swift; sourceTree = "<group>"; };
+		89BBF9CD268E9B6100FA46B6 /* CVPixelBuffer+Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CVPixelBuffer+Helpers.swift"; sourceTree = "<group>"; };
+		89BBF9CE268E9B6100FA46B6 /* Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
+		89BBF9CF268E9B6100FA46B6 /* VideoCapture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoCapture.swift; sourceTree = "<group>"; };
+		89BBF9D0268E9B6100FA46B6 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		89BBF9EB268E9F6200FA46B6 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		A1FDA08CC1F06B0AEBBE7A77 /* Pods-ARA-CoreML.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ARA-CoreML.debug.xcconfig"; path = "Target Support Files/Pods-ARA-CoreML/Pods-ARA-CoreML.debug.xcconfig"; sourceTree = "<group>"; };
+		EC7E0648285F42489D4A9B2B /* Pods-ALTOAI-Detect.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ALTOAI-Detect.debug.xcconfig"; path = "Target Support Files/Pods-ALTOAI-Detect/Pods-ALTOAI-Detect.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		89BBF9B2268E9AE300FA46B6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1007AEDB05DE2E0D1B2679CC /* Pods_ALTOAI_Detect.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		036E875ECFCBCCD2582E6176 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7165750EEFD0D4FBC986A65C /* Pods_ALTOAI_Detect.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		0D682044269DE32700945767 /* MLModels */ = {
+			isa = PBXGroup;
+			children = (
+				0D682047269DE35200945767 /* class_mapping.json */,
+				0D682045269DE34C00945767 /* yolo-v3-tiny-416x416-face-detector.mlmodel */,
+			);
+			path = MLModels;
+			sourceTree = "<group>";
+		};
+		89BBF9AC268E9AE300FA46B6 = {
+			isa = PBXGroup;
+			children = (
+				89BBF9B7268E9AE300FA46B6 /* ALTOAI-Detect */,
+				89BBF9B6268E9AE300FA46B6 /* Products */,
+				F09D368C9E90F2B6756BD634 /* Pods */,
+				036E875ECFCBCCD2582E6176 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		89BBF9B6268E9AE300FA46B6 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				89BBF9B5268E9AE300FA46B6 /* ALTOAI-Detect.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		89BBF9B7268E9AE300FA46B6 /* ALTOAI-Detect */ = {
+			isa = PBXGroup;
+			children = (
+				89BBF9EB268E9F6200FA46B6 /* Main.storyboard */,
+				89BBF9C9268E9B6100FA46B6 /* AppDelegate.swift */,
+				89BBF9CA268E9B6100FA46B6 /* BoundingBox.swift */,
+				89BBF9CD268E9B6100FA46B6 /* CVPixelBuffer+Helpers.swift */,
+				89BBF9CE268E9B6100FA46B6 /* Helpers.swift */,
+				89BBF9C8268E9B6100FA46B6 /* UIImage+CVPixelBuffer.swift */,
+				89BBF9CF268E9B6100FA46B6 /* VideoCapture.swift */,
+				89BBF9D0268E9B6100FA46B6 /* ViewController.swift */,
+				89BBF9CC268E9B6100FA46B6 /* YOLO.swift */,
+				0D712D8C269F8E490031D2E3 /* yolo_model.swift */,
+				0D712D8E26A02BE90031D2E3 /* ActivityIndicator.swift */,
+				0D682044269DE32700945767 /* MLModels */,
+				89BBF9BC268E9AE400FA46B6 /* Assets.xcassets */,
+				89BBF9C1268E9AE400FA46B6 /* Info.plist */,
+				89BBF9BE268E9AE400FA46B6 /* Preview Content */,
+			);
+			path = "ALTOAI-Detect";
+			sourceTree = "<group>";
+		};
+		89BBF9BE268E9AE400FA46B6 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				89BBF9BF268E9AE400FA46B6 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		F09D368C9E90F2B6756BD634 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A1FDA08CC1F06B0AEBBE7A77 /* Pods-ARA-CoreML.debug.xcconfig */,
+				59CFA31D914711661177F13E /* Pods-ARA-CoreML.release.xcconfig */,
+				EC7E0648285F42489D4A9B2B /* Pods-ALTOAI-Detect.debug.xcconfig */,
+				5B5F16DCF5ACE4A2BB15E825 /* Pods-ALTOAI-Detect.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		89BBF9B4268E9AE300FA46B6 /* ALTOAI-Detect */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 89BBF9C4268E9AE400FA46B6 /* Build configuration list for PBXNativeTarget "ALTOAI-Detect" */;
+			buildPhases = (
+				944F403711F2A438671BDD4D /* [CP] Check Pods Manifest.lock */,
+				89BBF9B1268E9AE300FA46B6 /* Sources */,
+				89BBF9B2268E9AE300FA46B6 /* Frameworks */,
+				89BBF9B3268E9AE300FA46B6 /* Resources */,
+				201A0E099274EC91D21575EF /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "ALTOAI-Detect";
+			productName = "ARA-CoreML";
+			productReference = 89BBF9B5268E9AE300FA46B6 /* ALTOAI-Detect.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		89BBF9AD268E9AE300FA46B6 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1240;
+				LastUpgradeCheck = 1240;
+				TargetAttributes = {
+					89BBF9B4268E9AE300FA46B6 = {
+						CreatedOnToolsVersion = 12.4;
+						LastSwiftMigration = 1250;
+					};
+				};
+			};
+			buildConfigurationList = 89BBF9B0268E9AE300FA46B6 /* Build configuration list for PBXProject "ALTOAI-Detect" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 89BBF9AC268E9AE300FA46B6;
+			productRefGroup = 89BBF9B6268E9AE300FA46B6 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				89BBF9B4268E9AE300FA46B6 /* ALTOAI-Detect */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		89BBF9B3268E9AE300FA46B6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0D682048269DE35200945767 /* class_mapping.json in Resources */,
+				89BBF9BD268E9AE400FA46B6 /* Assets.xcassets in Resources */,
+				89BBF9EC268E9F6200FA46B6 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		201A0E099274EC91D21575EF /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ALTOAI-Detect/Pods-ALTOAI-Detect-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ALTOAI-Detect/Pods-ALTOAI-Detect-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ALTOAI-Detect/Pods-ALTOAI-Detect-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		944F403711F2A438671BDD4D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ALTOAI-Detect-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		89BBF9B1268E9AE300FA46B6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				89BBF9D5268E9B6100FA46B6 /* BoundingBox.swift in Sources */,
+				89BBF9D8268E9B6100FA46B6 /* CVPixelBuffer+Helpers.swift in Sources */,
+				0D682046269DE34C00945767 /* yolo-v3-tiny-416x416-face-detector.mlmodel in Sources */,
+				0D712D8D269F8E490031D2E3 /* yolo_model.swift in Sources */,
+				89BBF9D4268E9B6100FA46B6 /* AppDelegate.swift in Sources */,
+				0D712D8F26A02BE90031D2E3 /* ActivityIndicator.swift in Sources */,
+				89BBF9DB268E9B6100FA46B6 /* ViewController.swift in Sources */,
+				89BBF9D9268E9B6100FA46B6 /* Helpers.swift in Sources */,
+				89BBF9D3268E9B6100FA46B6 /* UIImage+CVPixelBuffer.swift in Sources */,
+				89BBF9DA268E9B6100FA46B6 /* VideoCapture.swift in Sources */,
+				89BBF9D7268E9B6100FA46B6 /* YOLO.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		89BBF9C2268E9AE400FA46B6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		89BBF9C3268E9AE400FA46B6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		89BBF9C5268E9AE400FA46B6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = EC7E0648285F42489D4A9B2B /* Pods-ALTOAI-Detect.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"ALTOAI-Detect/Preview Content\"";
+				DEVELOPMENT_TEAM = 77BN2H677F;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = "ALTOAI-Detect/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 0.0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.star.parc.altoaidetect;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		89BBF9C6268E9AE400FA46B6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5B5F16DCF5ACE4A2BB15E825 /* Pods-ALTOAI-Detect.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"ALTOAI-Detect/Preview Content\"";
+				DEVELOPMENT_TEAM = 77BN2H677F;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = "ALTOAI-Detect/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 0.0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.star.parc.altoaidetect;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		89BBF9B0268E9AE300FA46B6 /* Build configuration list for PBXProject "ALTOAI-Detect" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				89BBF9C2268E9AE400FA46B6 /* Debug */,
+				89BBF9C3268E9AE400FA46B6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		89BBF9C4268E9AE400FA46B6 /* Build configuration list for PBXNativeTarget "ALTOAI-Detect" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				89BBF9C5268E9AE400FA46B6 /* Debug */,
+				89BBF9C6268E9AE400FA46B6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 89BBF9AD268E9AE300FA46B6 /* Project object */;
+}

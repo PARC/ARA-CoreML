@@ -1,0 +1,22 @@
+{
+    "model": {
+        "name": "yolo-v3-tiny",
+        "input_shapes": {
+            "batch": 1,
+            "channels": 3,
+            "height": 416,
+            "width": 416
+        },
+        "image": {
+            "mean": [ 0.0, 0.0, 0.0],
+            "std": [1.0, 1.0, 1.0]
+        },
+        "classes": [
+            {
+                "class": 0,
+                "id": 1,
+                "name": "face"
+            }
+        ]
+    }
+}
