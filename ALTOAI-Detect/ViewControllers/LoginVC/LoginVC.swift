@@ -7,15 +7,10 @@
 
 import UIKit
 
-class LoginViewController: UIViewController, UITextFieldDelegate {
+class LoginVC: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var apiKeyTxtFld: UITextField!
     @IBOutlet weak var apiSecretTxtFld: UITextField!
     @IBOutlet weak var enterBtn: UIButton!
-    
-    @IBAction func login(_ sender: Any) {
-        
-        
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,4 +44,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
         return true
     }
+    
+    //Mark IBACTIONS
+    
+    @IBAction func login(_ sender: Any) {
+        
+    }
+    
 }

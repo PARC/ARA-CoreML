@@ -6,11 +6,13 @@ import VideoToolbox
 import ZIPFoundation
 import RandomColorSwift
 
-class CameraViewController: UIViewController, UIDocumentPickerDelegate {
+class CameraVC: UIViewController, UIDocumentPickerDelegate {
     @IBOutlet weak var videoPreview: UIView!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var debugImageView: UIImageView!
-    @IBOutlet weak var stopStartButton: UIButton!
+ 
+    @IBOutlet weak var slidersVisibilityButton: UIButton!
+    @IBOutlet weak var slidersView: UIView!
     
     @IBOutlet weak var confidenceSlider: UISlider!
     @IBOutlet weak var confidenceValueLabel: UILabel!
@@ -19,8 +21,7 @@ class CameraViewController: UIViewController, UIDocumentPickerDelegate {
     
     var storeImage = false
     
-    
-    let yolo = YOLO()
+    var yolo = YOLO()
     
     var frame_num = 0
     var videoCapture: VideoCapture!
@@ -39,13 +40,20 @@ class CameraViewController: UIViewController, UIDocumentPickerDelegate {
     var frameCapturingStartTime = CACurrentMediaTime()
     let semaphore = DispatchSemaphore(value: 2)
     
-    var activityIndicator : ActivityIndicator?
+//    init(with yolo:YOLO) {
+//        self.yolo = yolo
+//        super.init(nibName: nil, bundle: nil)
+//    }
+//
+//    public required init?(coder aDecoder: NSCoder) {
+//        super.init(coder: aDecoder)
+//        self.yolo = YOLO()
+//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         timeLabel.text = ""
-        activityIndicator = ActivityIndicator(view:self.view, navigationController:nil,tabBarController: nil)
         
         confidenceSlider.value = yolo.confidenceThreshold
         confidenceValueLabel.text = "\(String(format: "%.2f", confidenceSlider.value))"
@@ -84,14 +92,7 @@ class CameraViewController: UIViewController, UIDocumentPickerDelegate {
         // Make colors for the bounding boxes. There is one color for each class,
         
         colors = randomColors(count: yolo.numClasses, luminosity: .light)
-//        for r: CGFloat in [0.2, 0.4, 0.6, 0.8, 1.0] {
-//            for g: CGFloat in [0.3, 0.6, 0.7, 0.8] {
-//                for b: CGFloat in [0.2, 0.4, 0.8, 0.6, 1.0] {
-//                    let color = UIColor(red: r, green: g, blue: b, alpha: 1)
-//                    colors.append(color)
-//                }
-//            }
-//        }
+
     }
     
     func setUpCoreImage() {
@@ -120,7 +121,7 @@ class CameraViewController: UIViewController, UIDocumentPickerDelegate {
     func setUpCamera() {
         videoCapture = VideoCapture()
         videoCapture.delegate = self
-        videoCapture.fps = 40
+        videoCapture.fps = 50
         videoCapture.setUp(sessionPreset: AVCaptureSession.Preset.vga640x480) { success in
             if success {
                 // Add the video preview into the UI.
@@ -141,11 +142,15 @@ class CameraViewController: UIViewController, UIDocumentPickerDelegate {
         }
     }
     
+    @IBAction func backButtonPressed(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
     
-    //MARK: This is a sample code on download model from AWS S3 url. just for testing purpose only. The URL should be updated as per model path from  API
     
-    @IBAction func startStop(_ sender: Any) {
-        isVideoCaptureStarted ? stopVideoCapture() : startVideoCapture()
+    @IBAction func toggleSlidersPressed(_ sender: Any) {
+        UIView.animate(withDuration: 0.3) { [weak self] in
+            self?.slidersView.alpha = self?.slidersView.alpha == 1.0 ? 0.0 : 1.0
+        }
     }
     
     func startVideoCapture() {
@@ -158,111 +163,6 @@ class CameraViewController: UIViewController, UIDocumentPickerDelegate {
         isVideoCaptureStarted = false
     }
     
-    @IBAction func open(_ sender: Any) {
-        stopVideoCapture()
-        
-        let documentPickerController = UIDocumentPickerViewController(
-            forOpeningContentTypes: [UTType.zip], asCopy: true)
-        documentPickerController.allowsMultipleSelection = false
-        documentPickerController.delegate = self
-        self.present(documentPickerController, animated: true)
-    }
-    
-    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
-        activityIndicator?.showActivityIndicator()
-        unzip(urls.first!)
-    }
-    
-    func unzip(_ zipURL:URL) {
-       // guard let zipURL = zipURL else { return }
-        
-        let fileManager = FileManager()
-        var destinationURL = getDocumentsDirectory()
-        
-        destinationURL.appendPathComponent(zipURL.deletingPathExtension().lastPathComponent)
-        do {
-            try fileManager.createDirectory(at: destinationURL, withIntermediateDirectories: true, attributes: nil)
-            if (fileManager.fileExists(atPath: zipURL.path)) {
-                try fileManager.unzipItem(at: zipURL, to: destinationURL)
-                print("ZIP archive extracted to: \(destinationURL)")
-            }
-        } catch {
-            print("Extraction of ZIP archive failed with error:\(error)")
-        }
-        compileModel(at: destinationURL)
-        startVideoCapture()
-        activityIndicator?.stopActivityIndicator()
-    }
-    
-    func compileModel(at url:URL) {
-        var modelLoaded = false
-        var jsonLoaded = false
-        
-        let fileManager = FileManager.default
-        let enumerator: FileManager.DirectoryEnumerator = fileManager.enumerator(atPath: url.path)!
-        while let element = enumerator.nextObject() as? String {
-            if (jsonLoaded && modelLoaded) {
-                break
-            }
-            
-            if (element.hasSuffix(".mlmodel")) {
-                
-                let modelURL = URL(fileURLWithPath: url.path+"/"+element)
-                guard let compiledModelURL = try? MLModel.compileModel(at: modelURL)else {
-                    print("Error in compiling model.")
-                    return
-                }
-                guard let model = try? MLModel(contentsOf: compiledModelURL) else {
-                    print("Error in getting model")
-                    return
-                }
-                let yoloModel = yolo_model(model: model)
-                yolo.model = yoloModel
-                modelLoaded = true
-                continue
-            } else if (element.hasSuffix(".json")) {
-                do {
-                    let data = try Data(contentsOf: URL(fileURLWithPath: url.path+"/"+element), options: .mappedIfSafe)
-                    let json = try JSONSerialization.jsonObject(with: data, options: .mutableLeaves)
-                    print(json)
-                    if let json = json as? Dictionary<String, AnyObject>, let model = json["model"] as? Dictionary<String, AnyObject> {
-                        let input_shapes = model["input_shapes"] as? Dictionary ?? [:]
-                        let height = input_shapes["height"] as? Int ?? 416
-                        let width = input_shapes["width"] as? Int ?? 416
-                        yolo.inputHeight = height
-                        yolo.inputWidth = width
-                        
-                        let classes = model["classes"] as? Array<Dictionary<String, AnyObject>> ?? []
-                        let names = classes.compactMap { $0["name"] } as! Array<String>
-                        if (names.count>0) {
-                            yolo.numClasses = names.count
-                            yolo.labels = names
-                            jsonLoaded = true
-                        }
-                    }
-                } catch {
-                    print("Error in getting json")
-                }
-                continue
-            } else {
-                continue
-            }
-        }
-        if (jsonLoaded && modelLoaded) {
-            setUp()
-        }
-    }
-    
-    func getDocumentsDirectory() -> URL {
-        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        let documentsDirectory = paths[0]
-        return documentsDirectory
-    }
-    
-    func documentPickerWasCancelled(_ controller: UIDocumentPickerViewController) {
-        startVideoCapture()
-    }
-    
     @IBAction func sliderValueChanged(_ sender: UISlider) {
         if (sender == confidenceSlider) {
             confidenceValueLabel.text = "\(String(format: "%.2f", confidenceSlider.value))"
@@ -271,47 +171,6 @@ class CameraViewController: UIViewController, UIDocumentPickerDelegate {
             iouValueLabel.text = "\(String(format: "%.2f", iouSlider.value))"
             yolo.iouThreshold = iouSlider.value
         }
-    }
-    
-    @IBAction func downloadModel(_ sender: Any) {
-        let logo_url = URL(string: "https://jey-public.s3-us-west-1.amazonaws.com/mlmodel/MobileNet.mlmodel")
-        
-//        let fileURL2 = URL(string: "https://ml-assets.apple.com/coreml/models/Image/ImageClassification/MobileNetV2/MobileNetV2.mlmodel")
-        
-        let fileManager = FileManager.default
-        let appSupportURL = fileManager.urls(for: .documentDirectory,
-                                             in: .userDomainMask).first!
-        //Destination url, in our case Playground Shared Data Directory
-        let documentsDirectory = appSupportURL.appendingPathComponent("MobileNet.mlmodel")
-        let task = URLSession.shared.downloadTask(with: logo_url!) { localURL, urlResponse, error in
-            if let localURL = localURL {
-                print("if condition")
-                let fileManager = FileManager.default
-                do {
-                    
-                    if fileManager.fileExists(atPath: documentsDirectory.path) {
-                        print("Already downloaded")
-                    }
-                    else {
-                        // Copy from temporary location to custom location.
-                        try fileManager.copyItem(at: localURL, to: documentsDirectory)
-                        print("downloaded")
-                    }
-                    
-                    
-                }
-                catch {
-                    fatalError("Error in copying to documents directory \(error)")
-                }
-                
-            }
-            else{
-                print("unable to download")
-            }
-        }
-        task.resume()
-        
-        
     }
     
     // MARK: - UI stuff
@@ -493,7 +352,7 @@ class CameraViewController: UIViewController, UIDocumentPickerDelegate {
     }
 }
 
-extension CameraViewController: VideoCaptureDelegate {
+extension CameraVC: VideoCaptureDelegate {
     func videoCapture(_ capture: VideoCapture, didCaptureVideoFrame pixelBuffer: CVPixelBuffer?, timestamp: CMTime) {
         // For debugging.
         //predict(image: UIImage(named: "dog416")!); return
