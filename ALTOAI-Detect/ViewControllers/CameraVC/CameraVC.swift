@@ -8,6 +8,7 @@ import RandomColorSwift
 
 class CameraVC: UIViewController, UIDocumentPickerDelegate {
     @IBOutlet weak var videoPreview: UIView!
+    @IBOutlet weak var fpsLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var debugImageView: UIImageView!
  
@@ -287,7 +288,8 @@ class CameraVC: UIViewController, UIDocumentPickerDelegate {
             self.show(predictions: boundingBoxes)
             
             let fps = self.measureFPS()
-            self.timeLabel.text = String(format: "Elapsed %.5f seconds - %.2f FPS", elapsed, fps)
+            self.timeLabel.text = String(format: "%.5f", elapsed)
+            self.fpsLabel.text = String(format: "%.2f", fps)
             
             self.semaphore.signal()
         }
