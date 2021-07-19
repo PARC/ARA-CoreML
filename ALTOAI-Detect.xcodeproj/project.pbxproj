@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0D51402926A5995200CEE1DD /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0D51402826A5995200CEE1DD /* Launch Screen.storyboard */; };
+		0D51402F26A5A88600CEE1DD /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D51402E26A5A88600CEE1DD /* LoginViewController.swift */; };
 		0D682046269DE34C00945767 /* yolo-v3-tiny-416x416-face-detector.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 0D682045269DE34C00945767 /* yolo-v3-tiny-416x416-face-detector.mlmodel */; };
 		0D682048269DE35200945767 /* class_mapping.json in Resources */ = {isa = PBXBuildFile; fileRef = 0D682047269DE35200945767 /* class_mapping.json */; };
 		0D712D8D269F8E490031D2E3 /* yolo_model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D712D8C269F8E490031D2E3 /* yolo_model.swift */; };
@@ -27,6 +28,7 @@
 
 /* Begin PBXFileReference section */
 		0D51402826A5995200CEE1DD /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		0D51402E26A5A88600CEE1DD /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		0D682045269DE34C00945767 /* yolo-v3-tiny-416x416-face-detector.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = "yolo-v3-tiny-416x416-face-detector.mlmodel"; sourceTree = "<group>"; };
 		0D682047269DE35200945767 /* class_mapping.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = class_mapping.json; sourceTree = "<group>"; };
 		0D712D8C269F8E490031D2E3 /* yolo_model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = yolo_model.swift; sourceTree = "<group>"; };
@@ -90,6 +92,33 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		0D51402B26A5A84300CEE1DD /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				0D51402D26A5A87300CEE1DD /* LoginVC */,
+				0D51402C26A5A85D00CEE1DD /* CameraVC */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		0D51402C26A5A85D00CEE1DD /* CameraVC */ = {
+			isa = PBXGroup;
+			children = (
+				89BBF9D0268E9B6100FA46B6 /* CameraViewController.swift */,
+				89BBF9CA268E9B6100FA46B6 /* BoundingBox.swift */,
+				89BBF9CF268E9B6100FA46B6 /* VideoCapture.swift */,
+			);
+			path = CameraVC;
+			sourceTree = "<group>";
+		};
+		0D51402D26A5A87300CEE1DD /* LoginVC */ = {
+			isa = PBXGroup;
+			children = (
+				0D51402E26A5A88600CEE1DD /* LoginViewController.swift */,
+			);
+			path = LoginVC;
+			sourceTree = "<group>";
+		};
 		0D682044269DE32700945767 /* MLModels */ = {
 			isa = PBXGroup;
 			children = (
@@ -123,15 +152,13 @@
 				89BBF9C9268E9B6100FA46B6 /* AppDelegate.swift */,
 				89BBF9EB268E9F6200FA46B6 /* Main.storyboard */,
 				89BBF9C1268E9AE400FA46B6 /* Info.plist */,
-				89BBF9CA268E9B6100FA46B6 /* BoundingBox.swift */,
-				89BBF9CF268E9B6100FA46B6 /* VideoCapture.swift */,
-				89BBF9D0268E9B6100FA46B6 /* CameraViewController.swift */,
+				0D51402B26A5A84300CEE1DD /* ViewControllers */,
 				0D712D8E26A02BE90031D2E3 /* ActivityIndicator.swift */,
 				89BBF9CC268E9B6100FA46B6 /* YOLO.swift */,
 				0D712D8C269F8E490031D2E3 /* yolo_model.swift */,
-				0D51402A26A59A6E00CEE1DD /* Resources */,
 				0D51402726A5960D00CEE1DD /* Helpers */,
 				0D682044269DE32700945767 /* MLModels */,
+				0D51402A26A59A6E00CEE1DD /* Resources */,
 				89BBF9BE268E9AE400FA46B6 /* Preview Content */,
 			);
 			path = "ALTOAI-Detect";
@@ -272,6 +299,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0D51402F26A5A88600CEE1DD /* LoginViewController.swift in Sources */,
 				89BBF9D5268E9B6100FA46B6 /* BoundingBox.swift in Sources */,
 				89BBF9D8268E9B6100FA46B6 /* CVPixelBuffer+Helpers.swift in Sources */,
 				0D682046269DE34C00945767 /* yolo-v3-tiny-416x416-face-detector.mlmodel in Sources */,
