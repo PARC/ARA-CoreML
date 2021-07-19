@@ -6,7 +6,7 @@ import VideoToolbox
 import ZIPFoundation
 import RandomColorSwift
 
-class ViewController: UIViewController, UIDocumentPickerDelegate {
+class CameraViewController: UIViewController, UIDocumentPickerDelegate {
     @IBOutlet weak var videoPreview: UIView!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var debugImageView: UIImageView!
@@ -493,7 +493,7 @@ class ViewController: UIViewController, UIDocumentPickerDelegate {
     }
 }
 
-extension ViewController: VideoCaptureDelegate {
+extension CameraViewController: VideoCaptureDelegate {
     func videoCapture(_ capture: VideoCapture, didCaptureVideoFrame pixelBuffer: CVPixelBuffer?, timestamp: CMTime) {
         // For debugging.
         //predict(image: UIImage(named: "dog416")!); return

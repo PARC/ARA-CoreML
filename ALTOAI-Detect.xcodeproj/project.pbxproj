@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D51402926A5995200CEE1DD /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0D51402826A5995200CEE1DD /* Launch Screen.storyboard */; };
 		0D682046269DE34C00945767 /* yolo-v3-tiny-416x416-face-detector.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 0D682045269DE34C00945767 /* yolo-v3-tiny-416x416-face-detector.mlmodel */; };
 		0D682048269DE35200945767 /* class_mapping.json in Resources */ = {isa = PBXBuildFile; fileRef = 0D682047269DE35200945767 /* class_mapping.json */; };
 		0D712D8D269F8E490031D2E3 /* yolo_model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D712D8C269F8E490031D2E3 /* yolo_model.swift */; };
@@ -20,11 +21,12 @@
 		89BBF9D8268E9B6100FA46B6 /* CVPixelBuffer+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BBF9CD268E9B6100FA46B6 /* CVPixelBuffer+Helpers.swift */; };
 		89BBF9D9268E9B6100FA46B6 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BBF9CE268E9B6100FA46B6 /* Helpers.swift */; };
 		89BBF9DA268E9B6100FA46B6 /* VideoCapture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BBF9CF268E9B6100FA46B6 /* VideoCapture.swift */; };
-		89BBF9DB268E9B6100FA46B6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BBF9D0268E9B6100FA46B6 /* ViewController.swift */; };
+		89BBF9DB268E9B6100FA46B6 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BBF9D0268E9B6100FA46B6 /* CameraViewController.swift */; };
 		89BBF9EC268E9F6200FA46B6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89BBF9EB268E9F6200FA46B6 /* Main.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0D51402826A5995200CEE1DD /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		0D682045269DE34C00945767 /* yolo-v3-tiny-416x416-face-detector.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = "yolo-v3-tiny-416x416-face-detector.mlmodel"; sourceTree = "<group>"; };
 		0D682047269DE35200945767 /* class_mapping.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = class_mapping.json; sourceTree = "<group>"; };
 		0D712D8C269F8E490031D2E3 /* yolo_model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = yolo_model.swift; sourceTree = "<group>"; };
@@ -43,7 +45,7 @@
 		89BBF9CD268E9B6100FA46B6 /* CVPixelBuffer+Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CVPixelBuffer+Helpers.swift"; sourceTree = "<group>"; };
 		89BBF9CE268E9B6100FA46B6 /* Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		89BBF9CF268E9B6100FA46B6 /* VideoCapture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoCapture.swift; sourceTree = "<group>"; };
-		89BBF9D0268E9B6100FA46B6 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		89BBF9D0268E9B6100FA46B6 /* CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		89BBF9EB268E9F6200FA46B6 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		A1FDA08CC1F06B0AEBBE7A77 /* Pods-ARA-CoreML.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ARA-CoreML.debug.xcconfig"; path = "Target Support Files/Pods-ARA-CoreML/Pods-ARA-CoreML.debug.xcconfig"; sourceTree = "<group>"; };
 		EC7E0648285F42489D4A9B2B /* Pods-ALTOAI-Detect.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ALTOAI-Detect.debug.xcconfig"; path = "Target Support Files/Pods-ALTOAI-Detect/Pods-ALTOAI-Detect.debug.xcconfig"; sourceTree = "<group>"; };
@@ -67,6 +69,25 @@
 				7165750EEFD0D4FBC986A65C /* Pods_ALTOAI_Detect.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		0D51402726A5960D00CEE1DD /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				89BBF9CE268E9B6100FA46B6 /* Helpers.swift */,
+				89BBF9CD268E9B6100FA46B6 /* CVPixelBuffer+Helpers.swift */,
+				89BBF9C8268E9B6100FA46B6 /* UIImage+CVPixelBuffer.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		0D51402A26A59A6E00CEE1DD /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				0D51402826A5995200CEE1DD /* Launch Screen.storyboard */,
+				89BBF9BC268E9AE400FA46B6 /* Assets.xcassets */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		0D682044269DE32700945767 /* MLModels */ = {
@@ -99,20 +120,18 @@
 		89BBF9B7268E9AE300FA46B6 /* ALTOAI-Detect */ = {
 			isa = PBXGroup;
 			children = (
-				89BBF9EB268E9F6200FA46B6 /* Main.storyboard */,
 				89BBF9C9268E9B6100FA46B6 /* AppDelegate.swift */,
+				89BBF9EB268E9F6200FA46B6 /* Main.storyboard */,
+				89BBF9C1268E9AE400FA46B6 /* Info.plist */,
 				89BBF9CA268E9B6100FA46B6 /* BoundingBox.swift */,
-				89BBF9CD268E9B6100FA46B6 /* CVPixelBuffer+Helpers.swift */,
-				89BBF9CE268E9B6100FA46B6 /* Helpers.swift */,
-				89BBF9C8268E9B6100FA46B6 /* UIImage+CVPixelBuffer.swift */,
 				89BBF9CF268E9B6100FA46B6 /* VideoCapture.swift */,
-				89BBF9D0268E9B6100FA46B6 /* ViewController.swift */,
+				89BBF9D0268E9B6100FA46B6 /* CameraViewController.swift */,
+				0D712D8E26A02BE90031D2E3 /* ActivityIndicator.swift */,
 				89BBF9CC268E9B6100FA46B6 /* YOLO.swift */,
 				0D712D8C269F8E490031D2E3 /* yolo_model.swift */,
-				0D712D8E26A02BE90031D2E3 /* ActivityIndicator.swift */,
+				0D51402A26A59A6E00CEE1DD /* Resources */,
+				0D51402726A5960D00CEE1DD /* Helpers */,
 				0D682044269DE32700945767 /* MLModels */,
-				89BBF9BC268E9AE400FA46B6 /* Assets.xcassets */,
-				89BBF9C1268E9AE400FA46B6 /* Info.plist */,
 				89BBF9BE268E9AE400FA46B6 /* Preview Content */,
 			);
 			path = "ALTOAI-Detect";
@@ -199,6 +218,7 @@
 			files = (
 				0D682048269DE35200945767 /* class_mapping.json in Resources */,
 				89BBF9BD268E9AE400FA46B6 /* Assets.xcassets in Resources */,
+				0D51402926A5995200CEE1DD /* Launch Screen.storyboard in Resources */,
 				89BBF9EC268E9F6200FA46B6 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -258,7 +278,7 @@
 				0D712D8D269F8E490031D2E3 /* yolo_model.swift in Sources */,
 				89BBF9D4268E9B6100FA46B6 /* AppDelegate.swift in Sources */,
 				0D712D8F26A02BE90031D2E3 /* ActivityIndicator.swift in Sources */,
-				89BBF9DB268E9B6100FA46B6 /* ViewController.swift in Sources */,
+				89BBF9DB268E9B6100FA46B6 /* CameraViewController.swift in Sources */,
 				89BBF9D9268E9B6100FA46B6 /* Helpers.swift in Sources */,
 				89BBF9D3268E9B6100FA46B6 /* UIImage+CVPixelBuffer.swift in Sources */,
 				89BBF9DA268E9B6100FA46B6 /* VideoCapture.swift in Sources */,
