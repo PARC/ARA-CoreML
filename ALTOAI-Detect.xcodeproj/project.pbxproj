@@ -130,13 +130,23 @@
 			path = LocalModelsVC;
 			sourceTree = "<group>";
 		};
-		0D682044269DE32700945767 /* MLModels */ = {
+		0D51403326A6DC5C00CEE1DD /* UIHelpers */ = {
 			isa = PBXGroup;
 			children = (
+				0D712D8E26A02BE90031D2E3 /* ActivityIndicator.swift */,
+			);
+			path = UIHelpers;
+			sourceTree = "<group>";
+		};
+		0D682044269DE32700945767 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				89BBF9CC268E9B6100FA46B6 /* YOLO.swift */,
+				0D712D8C269F8E490031D2E3 /* yolo_model.swift */,
 				0D682047269DE35200945767 /* class_mapping.json */,
 				0D682045269DE34C00945767 /* yolo-v3-tiny-416x416-face-detector.mlmodel */,
 			);
-			path = MLModels;
+			path = Models;
 			sourceTree = "<group>";
 		};
 		89BBF9AC268E9AE300FA46B6 = {
@@ -164,11 +174,9 @@
 				89BBF9EB268E9F6200FA46B6 /* Main.storyboard */,
 				89BBF9C1268E9AE400FA46B6 /* Info.plist */,
 				0D51402B26A5A84300CEE1DD /* ViewControllers */,
-				0D712D8E26A02BE90031D2E3 /* ActivityIndicator.swift */,
-				89BBF9CC268E9B6100FA46B6 /* YOLO.swift */,
-				0D712D8C269F8E490031D2E3 /* yolo_model.swift */,
+				0D51403326A6DC5C00CEE1DD /* UIHelpers */,
 				0D51402726A5960D00CEE1DD /* Helpers */,
-				0D682044269DE32700945767 /* MLModels */,
+				0D682044269DE32700945767 /* Models */,
 				0D51402A26A59A6E00CEE1DD /* Resources */,
 				89BBF9BE268E9AE400FA46B6 /* Preview Content */,
 			);

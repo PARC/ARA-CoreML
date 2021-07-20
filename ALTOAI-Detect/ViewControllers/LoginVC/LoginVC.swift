@@ -46,9 +46,9 @@ class LoginVC: UIViewController, UITextFieldDelegate {
     }
     
     //Mark IBACTIONS
-    
     @IBAction func login(_ sender: Any) {
-        
+        let alert = UIAlertController(title: nil, message: "In implementation", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        self.present(alert, animated: true)
     }
-    
 }
