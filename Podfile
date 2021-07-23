@@ -6,6 +6,7 @@ target 'ALTOAI-Detect' do
   use_frameworks!
 
   # Pods for ALTOAI-Detect
+  pod 'Alamofire', '~> 5.4'
   pod 'ZIPFoundation', '~> 0.9'
   pod 'RandomColorSwift'
   

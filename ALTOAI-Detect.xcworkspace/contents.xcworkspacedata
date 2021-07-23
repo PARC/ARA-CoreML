@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:/Users/hazzard/Documents/GitHub/ARA-CoreML/ALTOAI-Detect.xcodeproj">
+      location = "group:ALTOAI-Detect.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">
