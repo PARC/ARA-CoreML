@@ -11,16 +11,27 @@ import Alamofire
 enum APIRouter: APIConfiguration {
     
     case login(username:String, password:String)
-    //case getUserDetails
-  
+    case getProjects
+    case getScenes(projectId:String)
+    case getExperiments(sceneId:String)
+    case getExperimentRun(experimentId:String)
+    case getExperimentRunModel(experimentId:String, runId:String)
     
     // MARK: - HTTPMethod
     var method: HTTPMethod {
         switch self {
         case .login:
             return .post
-//        case .getUserDetails:
-//            return .get
+        case .getProjects:
+            return .get
+        case .getScenes:
+            return .get
+        case .getExperiments:
+            return .get
+        case .getExperimentRun:
+            return .get
+        case .getExperimentRunModel:
+            return .get
         }
     }
     // MARK: - Parameters
@@ -28,8 +39,16 @@ enum APIRouter: APIConfiguration {
         switch self {
         case .login(let client_id, let password):
             return .body(["client_id":client_id,"password":password])
-//        case .getUserDetails:
-//            return.body([:])
+        case .getProjects:
+            return.body([:])
+        case .getScenes:
+            return.body([:])
+        case .getExperiments:
+            return.body([:])
+        case .getExperimentRun:
+            return.body([:])
+        case .getExperimentRunModel:
+            return.body([:])
         }
     }
     
@@ -38,8 +57,16 @@ enum APIRouter: APIConfiguration {
         switch self {
         case .login:
             return "/auth"
-//        case .getUserDetails:
-//            return "/userDetailEndpoint"
+        case .getProjects:
+            return "/ar/data/projects"
+        case .getScenes(let projectId):
+            return "/ar/data/projects/\(projectId)/scenes"
+        case .getExperiments(let sceneId):
+            return "/ar/data/scenes/\(sceneId)/experiments"
+        case .getExperimentRun(let experimentId):
+            return "/ar/data/experiments/\(experimentId)/run"
+        case .getExperimentRunModel(let experimentId, let runId):
+            return "/ar/data/experiments/\(experimentId)/run/\(runId)/models"
         }
     }
     

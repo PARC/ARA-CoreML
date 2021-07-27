@@ -9,5 +9,6 @@ target 'ALTOAI-Detect' do
   pod 'Alamofire', '~> 5.4'
   pod 'ZIPFoundation', '~> 0.9'
   pod 'RandomColorSwift'
+  pod 'KeychainSwift', '~> 19.0'
   
 end

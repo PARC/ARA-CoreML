@@ -85,7 +85,6 @@ class LocalModelsVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
             print("Extraction of ZIP archive failed with error:\(error)")
         }
         compileModel(at: destinationURL)
-        //startVideoCapture()
         activityIndicator?.stopActivityIndicator()
     }
     
@@ -152,6 +151,10 @@ class LocalModelsVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                 cameraVC.modalPresentationStyle = .fullScreen
                 present(cameraVC, animated: true, completion: nil)
             }
+        } else {
+            let alert = UIAlertController(title: nil, message: "Your zip archive doesn't contain model and json file", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(alert, animated: true)
         }
     }
 }

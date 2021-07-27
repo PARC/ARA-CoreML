@@ -83,6 +83,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		0D3C10DD26AB14EA00469446 /* Responses */ = {
+			isa = PBXGroup;
+			children = (
+				0DFA24DE26A6E7410014CD6E /* LoginResponse.swift */,
+			);
+			path = Responses;
+			sourceTree = "<group>";
+		};
 		0D51402726A5960D00CEE1DD /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
@@ -160,7 +168,7 @@
 				0D51403626A6E51500CEE1DD /* APIConfiguration.swift */,
 				0DFA24DA26A6E6770014CD6E /* Constants.swift */,
 				0DFA24DC26A6E69F0014CD6E /* APIRouter.swift */,
-				0DFA24DE26A6E7410014CD6E /* LoginResponse.swift */,
+				0D3C10DD26AB14EA00469446 /* Responses */,
 			);
 			path = Network;
 			sourceTree = "<group>";

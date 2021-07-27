@@ -6,7 +6,8 @@
 //
 
 import UIKit
-
+import Alamofire
+    
 class LoginVC: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var apiKeyTxtFld: UITextField!
     @IBOutlet weak var apiSecretTxtFld: UITextField!
@@ -14,6 +15,9 @@ class LoginVC: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        apiKeyTxtFld.text = "9a80daf6-d53d-433a-81f7-45ad1b6fc448"
+        apiSecretTxtFld.text = "2980aa95-0114-49fb-aa2e-beb40c8510b8"
         
         enterBtn.setTitleColor(UIColor.white, for:.normal)
         enterBtn.setTitleColor(UIColor.init(red: 60/256.0, green: 60/256.0, blue: 67/256.0, alpha: 0.3), for:.disabled)
@@ -47,8 +51,16 @@ class LoginVC: UIViewController, UITextFieldDelegate {
     
     //Mark IBACTIONS
     @IBAction func login(_ sender: Any) {
-        let alert = UIAlertController(title: nil, message: "In implementation", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        self.present(alert, animated: true)
+        AF.request(APIRouter.login(username:apiKeyTxtFld.text ?? "", password:apiSecretTxtFld.text ?? ""))
+            .responseDecodable { (response: DataResponse<LoginResponse, AFError>) in
+                switch response.result {
+                case .success(let response):
+                    print(response)
+                    break
+                case .failure(let error):
+                    print(error)
+                    break
+                }
+        }
     }
 }
