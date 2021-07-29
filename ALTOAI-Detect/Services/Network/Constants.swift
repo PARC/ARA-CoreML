@@ -32,9 +32,12 @@ enum HTTPHeaderField: String {
 enum ContentType: String {
     case json = "Application/json"
     case formEncode = "application/x-www-form-urlencoded"
+    case all = "*/*"
 }
 
 enum RequestParams {
     case body(_:Parameters)
     case url(_:Parameters)
 }
+
+let kUserTokenKey = "auth-user-token"

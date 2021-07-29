@@ -7,10 +7,11 @@
 
 import Foundation
 import Alamofire
+import SimpleKeychain
 
 enum APIRouter: APIConfiguration {
     
-    case login(username:String, password:String)
+    case login(apiKey:String, apiSecret:String)
     case getProjects
     case getScenes(projectId:String)
     case getExperiments(sceneId:String)
@@ -37,8 +38,8 @@ enum APIRouter: APIConfiguration {
     // MARK: - Parameters
      var parameters: RequestParams {
         switch self {
-        case .login(let client_id, let password):
-            return .body(["client_id":client_id,"password":password])
+        case .login(let apiKey, let apiSecret):
+            return .body(["client_id":apiKey,"client_secret":apiSecret])
         case .getProjects:
             return.body([:])
         case .getScenes:
@@ -81,13 +82,27 @@ enum APIRouter: APIConfiguration {
         
         // Common Headers
         urlRequest.setValue(ContentType.json.rawValue, forHTTPHeaderField: HTTPHeaderField.acceptType.rawValue)
-        urlRequest.setValue(ContentType.json.rawValue, forHTTPHeaderField: HTTPHeaderField.contentType.rawValue)
+        if (method == .post) {
+            urlRequest.setValue(ContentType.formEncode.rawValue, forHTTPHeaderField: HTTPHeaderField.contentType.rawValue)
+        } else  if (method == .get) {
+            urlRequest.setValue(ContentType.all.rawValue, forHTTPHeaderField: HTTPHeaderField.contentType.rawValue)
+        }
         
         // Parameters
         switch parameters {
             
         case .body(let params):
-            urlRequest.httpBody = try JSONSerialization.data(withJSONObject: params, options: [])
+            let jsonString = params.reduce("") { "\($0)\($1.0)=\($1.1)&" }.dropLast()
+            if let data = jsonString.data(using: .utf8, allowLossyConversion: false), data.count > 0 {
+                urlRequest.httpBody = data
+            }
+
+//            do {
+//                urlRequest.httpBody = try JSONSerialization.data(withJSONObject: params, options: .prettyPrinted)
+//            } catch let error {
+//                print(error.localizedDescription)
+//            }
+//            break
             
         case .url(let params):
                 let queryParams = params.map { pair  in

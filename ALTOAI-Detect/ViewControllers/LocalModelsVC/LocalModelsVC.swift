@@ -17,13 +17,8 @@ class LocalModelsVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     @IBOutlet weak var addButton: UIButton!
     @IBOutlet weak var descriptionLabel: UILabel!
     
-    var activityIndicator : ActivityIndicator?
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        activityIndicator = ActivityIndicator(view:self.view, navigationController:nil,tabBarController: nil)
     }
     
     @IBAction func addPressed(_ sender: Any) {
@@ -44,7 +39,6 @@ class LocalModelsVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "myCell", for: indexPath)// as! ourCell
-        //cell.nameLabel.text = names[indexPath.row]
         return cell
     }
     
@@ -53,7 +47,7 @@ class LocalModelsVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     }
     
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
-        activityIndicator?.showActivityIndicator()
+        view.activityStartAnimating()
         unzip(urls.first!)
     }
     
@@ -85,7 +79,7 @@ class LocalModelsVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
             print("Extraction of ZIP archive failed with error:\(error)")
         }
         compileModel(at: destinationURL)
-        activityIndicator?.stopActivityIndicator()
+        view.activityStopAnimating()
     }
     
     func compileModel(at url:URL) {
