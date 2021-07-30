@@ -42,11 +42,65 @@ class APIManager {
         request?.cancel()
         request =
             sessionManager.request(APIRouter.getProjects).responseDecodable(of: [Project].self) { response in
-            guard let projects = response.value else {
+            guard let objects = response.value else {
               return
             }
-            completion(projects)
+            completion(objects)
           }
+    }
+    
+    func getScenes(projectId : String, completion: @escaping ([Scene]) -> Void) {
+        request?.cancel()
+        request =
+            sessionManager.request(APIRouter.getScenes(projectId: projectId)).responseDecodable(of: [Scene].self) { response in
+            guard let objects = response.value else {
+              return
+            }
+            completion(objects)
+          }
+    }
+    
+    func getExperiments(sceneId : String, completion: @escaping ([Experiment]) -> Void) {
+        request?.cancel()
+        request =
+            sessionManager.request(APIRouter.getExperiments(sceneId: sceneId)).responseDecodable(of: [Experiment].self) { response in
+            guard let objects = response.value else {
+              return
+            }
+            completion(objects)
+          }
+    }
+    
+    func getExperimentRuns(experimentId : String, completion: @escaping ([ExperimentRun]) -> Void) {
+        request?.cancel()
+        request =
+            sessionManager.request(APIRouter.getExperimentRun(experimentId: experimentId)).responseDecodable(of: [ExperimentRun].self) { response in
+            guard let objects = response.value else {
+              return
+            }
+            completion(objects)
+          }
+    }
+    
+    func downloadModel(experimentId : String, runId: String, completion: @escaping (URL?) -> Void) {
+        request?.cancel()
+        
+        let destination: DownloadRequest.Destination = { _, _ in
+            let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+            let fileURL = documentsURL.appendingPathComponent("\(experimentId)-\(runId).zip")
+            
+            return (fileURL, [.removePreviousFile, .createIntermediateDirectories])
+        }
+        
+        request =
+            sessionManager.download(APIRouter.getModel(experimentId: experimentId, runId: runId) , to:destination).response { response in
+                if response.error == nil, let zipURL = response.fileURL {
+                    print(zipURL)
+                    completion(zipURL)
+                } else {
+                    completion(nil)
+                }
+            }
     }
 }
 

@@ -1,13 +1,13 @@
 //
-//  Project.swift
+//  Scene.swift
 //  ALTOAI-Detect
 //
-//  Created by Volodymyr Grek on 28.07.2021.
+//  Created by Volodymyr Grek on 29.07.2021.
 //
 
 import Foundation
 
-struct Project {
+struct Scene {
     let name : String?
     let id : String
     let description : String?
@@ -19,7 +19,7 @@ struct Project {
     }
 }
 
-extension Project: Decodable {
+extension Scene: Decodable {
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         name = try container.decodeIfPresent(String.self, forKey: .name)

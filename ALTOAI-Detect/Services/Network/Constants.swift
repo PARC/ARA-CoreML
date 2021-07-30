@@ -10,6 +10,9 @@ import Alamofire
 
 struct Constants {
     struct ProductionServer {
+        static let baseURL = "https://app.alto-platform.ai/api"
+    }
+    struct DemoServer {
         static let baseURL = "https://gateway-demo.qa.alto-platform.ai/api"
     }
     struct QA1Server {
