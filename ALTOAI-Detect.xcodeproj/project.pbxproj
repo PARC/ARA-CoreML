@@ -34,6 +34,7 @@
 		0DB4AAC626B2C7B6001F5CD3 /* ExperimentRunVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB4AAC526B2C7B6001F5CD3 /* ExperimentRunVC.swift */; };
 		0DB4AAC826B2C7EB001F5CD3 /* ExperimentRunViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB4AAC726B2C7EB001F5CD3 /* ExperimentRunViewModel.swift */; };
 		0DE4F1DA26B2F565007053DB /* ModelExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE4F1D926B2F565007053DB /* ModelExtractor.swift */; };
+		0DE4F1DD26B43146007053DB /* MainTabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE4F1DC26B43146007053DB /* MainTabBarVC.swift */; };
 		0DFA24DB26A6E6770014CD6E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DFA24DA26A6E6770014CD6E /* Constants.swift */; };
 		0DFA24DD26A6E69F0014CD6E /* APIRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DFA24DC26A6E69F0014CD6E /* APIRouter.swift */; };
 		1007AEDB05DE2E0D1B2679CC /* Pods_ALTOAI_Detect.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7165750EEFD0D4FBC986A65C /* Pods_ALTOAI_Detect.framework */; };
@@ -77,6 +78,7 @@
 		0DB4AAC526B2C7B6001F5CD3 /* ExperimentRunVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperimentRunVC.swift; sourceTree = "<group>"; };
 		0DB4AAC726B2C7EB001F5CD3 /* ExperimentRunViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperimentRunViewModel.swift; sourceTree = "<group>"; };
 		0DE4F1D926B2F565007053DB /* ModelExtractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelExtractor.swift; sourceTree = "<group>"; };
+		0DE4F1DC26B43146007053DB /* MainTabBarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarVC.swift; sourceTree = "<group>"; };
 		0DFA24DA26A6E6770014CD6E /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		0DFA24DC26A6E69F0014CD6E /* APIRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRouter.swift; sourceTree = "<group>"; };
 		59CFA31D914711661177F13E /* Pods-ARA-CoreML.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ARA-CoreML.release.xcconfig"; path = "Target Support Files/Pods-ARA-CoreML/Pods-ARA-CoreML.release.xcconfig"; sourceTree = "<group>"; };
@@ -142,6 +144,7 @@
 		0D51402B26A5A84300CEE1DD /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				0DE4F1DB26B4311E007053DB /* MainTabBarVC */,
 				0D51402D26A5A87300CEE1DD /* LoginVC */,
 				0DB4AA9526B1B88B001F5CD3 /* ProjectsVC */,
 				0DB4AAA326B29B6C001F5CD3 /* ScenesVC */,
@@ -310,6 +313,14 @@
 				0DB4AAC726B2C7EB001F5CD3 /* ExperimentRunViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		0DE4F1DB26B4311E007053DB /* MainTabBarVC */ = {
+			isa = PBXGroup;
+			children = (
+				0DE4F1DC26B43146007053DB /* MainTabBarVC.swift */,
+			);
+			path = MainTabBarVC;
 			sourceTree = "<group>";
 		};
 		89BBF9AC268E9AE300FA46B6 = {
@@ -511,6 +522,7 @@
 				89BBF9D3268E9B6100FA46B6 /* UIImage+CVPixelBuffer.swift in Sources */,
 				89BBF9DA268E9B6100FA46B6 /* VideoCapture.swift in Sources */,
 				89BBF9D7268E9B6100FA46B6 /* YOLO.swift in Sources */,
+				0DE4F1DD26B43146007053DB /* MainTabBarVC.swift in Sources */,
 				0DB4AAA926B29D8F001F5CD3 /* ScenesViewModel.swift in Sources */,
 				0DB4AA8E26B072C5001F5CD3 /* KeyChainManager.swift in Sources */,
 				0DB4AAA226B20331001F5CD3 /* AccessToken.swift in Sources */,
