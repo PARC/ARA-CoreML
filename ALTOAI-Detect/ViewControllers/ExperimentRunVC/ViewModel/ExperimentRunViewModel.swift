@@ -21,9 +21,12 @@ class ExperimentRunViewModel {
     func getData(completion: ((Bool) -> Void)?) {
         guard let experimentId = experiment?.id else {return}
         
-        APIManager.shared.getExperimentRuns(experimentId: experimentId) { (fetched) in
-            self.objects = fetched
-            completion?(self.objects?.count ?? 0 > 0)
+        APIManager.shared.getExperimentRuns(experimentId: experimentId) { (fetched, error) in
+            
+            self.objects = fetched?.filter({ run in
+                return run.status == "COMPLETED"
+            })
+            completion?(error == nil)
         }
     }
     

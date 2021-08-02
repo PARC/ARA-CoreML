@@ -10,4 +10,8 @@ enum CustomError: String, Error {
     case authorize = "Unable to authenticate user. An error occurred during authorization, please check your connection and try again."
     case unavailableServer = "Server is unavailable"
     case cantGetProjects = "Can't get projects"
+    case cantGetScenes = "Can't get scenes"
+    case cantGetExperiments = "Can't get experiments"
+    case cantGetExperimentRuns = "Can't get experiment runs"
+    case cantGetModel = "Can't get model"
 }

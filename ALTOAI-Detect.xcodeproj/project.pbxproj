@@ -35,6 +35,11 @@
 		0DB4AAC826B2C7EB001F5CD3 /* ExperimentRunViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB4AAC726B2C7EB001F5CD3 /* ExperimentRunViewModel.swift */; };
 		0DE4F1DA26B2F565007053DB /* ModelExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE4F1D926B2F565007053DB /* ModelExtractor.swift */; };
 		0DE4F1DD26B43146007053DB /* MainTabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE4F1DC26B43146007053DB /* MainTabBarVC.swift */; };
+		0DE4F1DF26B7F0D3007053DB /* UITableView+Empty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE4F1DE26B7F0D3007053DB /* UITableView+Empty.swift */; };
+		0DE4F1E126B7F3C9007053DB /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE4F1E026B7F3C9007053DB /* Colors.swift */; };
+		0DE4F1E326B7F3E2007053DB /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE4F1E226B7F3E2007053DB /* Fonts.swift */; };
+		0DE4F1E526B7F43E007053DB /* AppStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE4F1E426B7F43E007053DB /* AppStyle.swift */; };
+		0DE4F1EA26B7FBAA007053DB /* TableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE4F1E926B7FBAA007053DB /* TableViewHeader.swift */; };
 		0DFA24DB26A6E6770014CD6E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DFA24DA26A6E6770014CD6E /* Constants.swift */; };
 		0DFA24DD26A6E69F0014CD6E /* APIRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DFA24DC26A6E69F0014CD6E /* APIRouter.swift */; };
 		1007AEDB05DE2E0D1B2679CC /* Pods_ALTOAI_Detect.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7165750EEFD0D4FBC986A65C /* Pods_ALTOAI_Detect.framework */; };
@@ -79,6 +84,11 @@
 		0DB4AAC726B2C7EB001F5CD3 /* ExperimentRunViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperimentRunViewModel.swift; sourceTree = "<group>"; };
 		0DE4F1D926B2F565007053DB /* ModelExtractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelExtractor.swift; sourceTree = "<group>"; };
 		0DE4F1DC26B43146007053DB /* MainTabBarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarVC.swift; sourceTree = "<group>"; };
+		0DE4F1DE26B7F0D3007053DB /* UITableView+Empty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Empty.swift"; sourceTree = "<group>"; };
+		0DE4F1E026B7F3C9007053DB /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		0DE4F1E226B7F3E2007053DB /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
+		0DE4F1E426B7F43E007053DB /* AppStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStyle.swift; sourceTree = "<group>"; };
+		0DE4F1E926B7FBAA007053DB /* TableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewHeader.swift; sourceTree = "<group>"; };
 		0DFA24DA26A6E6770014CD6E /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		0DFA24DC26A6E69F0014CD6E /* APIRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRouter.swift; sourceTree = "<group>"; };
 		59CFA31D914711661177F13E /* Pods-ARA-CoreML.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ARA-CoreML.release.xcconfig"; path = "Target Support Files/Pods-ARA-CoreML/Pods-ARA-CoreML.release.xcconfig"; sourceTree = "<group>"; };
@@ -185,7 +195,12 @@
 		0D51403326A6DC5C00CEE1DD /* UIHelpers */ = {
 			isa = PBXGroup;
 			children = (
+				0DE4F1E026B7F3C9007053DB /* Colors.swift */,
+				0DE4F1E226B7F3E2007053DB /* Fonts.swift */,
+				0DE4F1E426B7F43E007053DB /* AppStyle.swift */,
 				0DB4AA9B26B1CCD7001F5CD3 /* UIView+ActivityIndicator.swift */,
+				0DE4F1DE26B7F0D3007053DB /* UITableView+Empty.swift */,
+				0DE4F1E926B7FBAA007053DB /* TableViewHeader.swift */,
 			);
 			path = UIHelpers;
 			sourceTree = "<group>";
@@ -502,6 +517,7 @@
 				0D712D8D269F8E490031D2E3 /* yolo_model.swift in Sources */,
 				0DFA24DD26A6E69F0014CD6E /* APIRouter.swift in Sources */,
 				0DB4AA9226B074E4001F5CD3 /* CustomError.swift in Sources */,
+				0DE4F1E526B7F43E007053DB /* AppStyle.swift in Sources */,
 				0DFA24DB26A6E6770014CD6E /* Constants.swift in Sources */,
 				0DB4AAA526B29B87001F5CD3 /* ScenesVC.swift in Sources */,
 				0DB4AA9026B07472001F5CD3 /* NetworkRequestInterceptor.swift in Sources */,
@@ -519,12 +535,16 @@
 				89BBF9DB268E9B6100FA46B6 /* CameraVC.swift in Sources */,
 				0D51403226A5D23000CEE1DD /* LocalModelsVC.swift in Sources */,
 				89BBF9D9268E9B6100FA46B6 /* Helpers.swift in Sources */,
+				0DE4F1E326B7F3E2007053DB /* Fonts.swift in Sources */,
 				89BBF9D3268E9B6100FA46B6 /* UIImage+CVPixelBuffer.swift in Sources */,
+				0DE4F1EA26B7FBAA007053DB /* TableViewHeader.swift in Sources */,
 				89BBF9DA268E9B6100FA46B6 /* VideoCapture.swift in Sources */,
 				89BBF9D7268E9B6100FA46B6 /* YOLO.swift in Sources */,
+				0DE4F1E126B7F3C9007053DB /* Colors.swift in Sources */,
 				0DE4F1DD26B43146007053DB /* MainTabBarVC.swift in Sources */,
 				0DB4AAA926B29D8F001F5CD3 /* ScenesViewModel.swift in Sources */,
 				0DB4AA8E26B072C5001F5CD3 /* KeyChainManager.swift in Sources */,
+				0DE4F1DF26B7F0D3007053DB /* UITableView+Empty.swift in Sources */,
 				0DB4AAA226B20331001F5CD3 /* AccessToken.swift in Sources */,
 				0DB4AAC626B2C7B6001F5CD3 /* ExperimentRunVC.swift in Sources */,
 			);
