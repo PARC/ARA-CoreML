@@ -24,13 +24,17 @@ class APIManager {
         return Session(configuration: configuration, interceptor: interceptor, eventMonitors: [networkLogger])
     }()
 
-    func authorize(apiKey:String, apiSecret: String, completion: @escaping (Bool) -> Void) {
+    func authorize(apiKey:String, apiSecret: String, completion: @escaping (Bool, Error?) -> Void) {
         sessionManager.request(APIRouter.login(apiKey: apiKey, apiSecret: apiSecret)).responseDecodable(of: AccessToken.self) { response in
-            guard let token = response.value else {
-                return completion(false)
+            if response.response?.statusCode == 400  {
+                completion(false, CustomError.incorrectCredentials)
+            } else {
+                guard let token = response.value else {
+                    return completion(false, response.error)
+                }
+                KeyChainManager.shared.signIn(apiKey: apiKey, secretKey: apiSecret, token: token.accessToken)
+                completion(true, nil)
             }
-            KeyChainManager.shared.signIn(apiKey: apiKey, secretKey: apiSecret, token: token.accessToken)
-            completion(true)
         }
     }
     

@@ -8,6 +8,7 @@
 import Foundation
 enum CustomError: String, Error {
     case authorize = "Unable to authenticate user. An error occurred during authorization, please check your connection and try again."
+    case incorrectCredentials = "Unable to authenticate user. An error occurred during authorization, please check your credentials."
     case unavailableServer = "Server is unavailable"
     case cantGetProjects = "Can't get projects"
     case cantGetScenes = "Can't get scenes"

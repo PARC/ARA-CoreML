@@ -75,12 +75,21 @@
         @IBAction func login(_ sender: Any) {
             guard let apiKey = apiKeyTxtFld.text, let apiSecret = apiSecretTxtFld.text else { return }
             view.activityStartAnimating()
-            APIManager.shared.authorize(apiKey: apiKey, apiSecret: apiSecret) { (result) in
+            APIManager.shared.authorize(apiKey: apiKey, apiSecret: apiSecret) { (isSuccess, error) in
                 self.view.activityStopAnimating()
-                if (result) {
+                
+                if (isSuccess) {
                     self.performSegue(withIdentifier: "toProjects", sender: self)
+                } else {
+                    var message = "Something is wrong. Please try again"
+                    if let error = error as? CustomError {
+                        message = error.rawValue
+                    }
+                    
+                    let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    self.present(alert, animated: true)
                 }
             }
         }
-        
     }
