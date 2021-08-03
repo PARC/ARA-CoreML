@@ -33,7 +33,6 @@ class NetworkRequestInterceptor: RequestInterceptor {
             if let apiKey = credentials.apiKey, let apiSecret = credentials.secretKey {
                 APIManager.shared.authorize(apiKey: apiKey, apiSecret: apiSecret) { (success) in
                     success ? completion(.retry) : completion(.doNotRetry)
-                    //completion(.doNotRetry)
                 }
             } else {
                 return completion(.doNotRetry)

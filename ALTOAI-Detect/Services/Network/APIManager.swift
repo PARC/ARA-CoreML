@@ -14,8 +14,6 @@ class APIManager {
     
     typealias completionHandler = ((Result<Data, CustomError>) -> Void)
     
-    var request: Alamofire.Request?
-    
     let sessionManager: Session = {
         let networkLogger = NetworkLogger()
         let interceptor = NetworkRequestInterceptor()
@@ -27,68 +25,56 @@ class APIManager {
     }()
 
     func authorize(apiKey:String, apiSecret: String, completion: @escaping (Bool) -> Void) {
-        request?.cancel()
-        request =
-            sessionManager.request(APIRouter.login(apiKey: apiKey, apiSecret: apiSecret)).responseDecodable(of: AccessToken.self) { response in
-                guard let token = response.value else {
-                    return completion(false)
-                }
-                KeyChainManager.shared.signIn(apiKey: apiKey, secretKey: apiSecret, token: token.accessToken)
-                completion(true)
+        sessionManager.request(APIRouter.login(apiKey: apiKey, apiSecret: apiSecret)).responseDecodable(of: AccessToken.self) { response in
+            guard let token = response.value else {
+                return completion(false)
             }
+            KeyChainManager.shared.signIn(apiKey: apiKey, secretKey: apiSecret, token: token.accessToken)
+            completion(true)
+        }
     }
     
     func getProjects(completion: @escaping ([Project]?, Error?) -> Void) {
-        request?.cancel()
-        request =
-            sessionManager.request(APIRouter.getProjects).responseDecodable(of: [Project].self) { response in
-                guard let objects = response.value else {
-                    completion(nil, CustomError.cantGetProjects)
-                    return
-                }
-                completion(objects, nil)
+        sessionManager.request(APIRouter.getProjects).responseDecodable(of: [Project].self) { response in
+            guard let objects = response.value else {
+                completion(nil, CustomError.cantGetProjects)
+                return
             }
+            completion(objects, nil)
+        }
     }
     
     func getScenes(projectId : String, completion: @escaping ([Scene]?, Error?) -> Void) {
-        request?.cancel()
-        request =
-            sessionManager.request(APIRouter.getScenes(projectId: projectId)).responseDecodable(of: [Scene].self) { response in
-                guard let objects = response.value else {
-                    completion(nil, CustomError.cantGetScenes)
-                    return
-                }
-                completion(objects, nil)
+        sessionManager.request(APIRouter.getScenes(projectId: projectId)).responseDecodable(of: [Scene].self) { response in
+            guard let objects = response.value else {
+                completion(nil, CustomError.cantGetScenes)
+                return
             }
+            completion(objects, nil)
+        }
     }
     
     func getExperiments(sceneId : String, completion: @escaping ([Experiment]?, Error?) -> Void) {
-        request?.cancel()
-        request =
-            sessionManager.request(APIRouter.getExperiments(sceneId: sceneId)).responseDecodable(of: [Experiment].self) { response in
-                guard let objects = response.value else {
-                    completion(nil, CustomError.cantGetExperiments)
-                    return
-                }
-                completion(objects, nil)
+        sessionManager.request(APIRouter.getExperiments(sceneId: sceneId)).responseDecodable(of: [Experiment].self) { response in
+            guard let objects = response.value else {
+                completion(nil, CustomError.cantGetExperiments)
+                return
             }
+            completion(objects, nil)
+        }
     }
     
     func getExperimentRuns(experimentId : String, completion: @escaping ([ExperimentRun]?, Error?) -> Void) {
-        request?.cancel()
-        request =
-            sessionManager.request(APIRouter.getExperimentRun(experimentId: experimentId)).responseDecodable(of: [ExperimentRun].self) { response in
-                guard let objects = response.value else {
-                    completion(nil, CustomError.cantGetExperimentRuns)
-                    return
-                }
-                completion(objects, nil)
+        sessionManager.request(APIRouter.getExperimentRun(experimentId: experimentId)).responseDecodable(of: [ExperimentRun].self) { response in
+            guard let objects = response.value else {
+                completion(nil, CustomError.cantGetExperimentRuns)
+                return
             }
+            completion(objects, nil)
+        }
     }
     
     func downloadModel(experimentId : String, runId: String, completion: @escaping (URL?) -> Void) {
-        request?.cancel()
-        
         let destination: DownloadRequest.Destination = { _, _ in
             let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
             let fileURL = documentsURL.appendingPathComponent("\(experimentId)-\(runId).zip")
@@ -96,15 +82,14 @@ class APIManager {
             return (fileURL, [.removePreviousFile, .createIntermediateDirectories])
         }
         
-        request =
-            sessionManager.download(APIRouter.getModel(experimentId: experimentId, runId: runId) , to:destination).response { response in
-                if response.error == nil, let zipURL = response.fileURL {
-                    print(zipURL)
-                    completion(zipURL)
-                } else {
-                    completion(nil)
-                }
+        sessionManager.download(APIRouter.getModel(experimentId: experimentId, runId: runId) , to:destination).response { response in
+            if response.error == nil, let zipURL = response.fileURL {
+                print(zipURL)
+                completion(zipURL)
+            } else {
+                completion(nil)
             }
+        }
     }
 }
 
