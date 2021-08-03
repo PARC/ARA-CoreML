@@ -106,7 +106,7 @@ class CameraVC: UIViewController, UIDocumentPickerDelegate {
     }
     
     func setUpVision() {
-        guard let visionModel = try? VNCoreMLModel(for: yolo.model.model) else {
+        guard let model = yolo.model, let visionModel = try? VNCoreMLModel(for: model.model) else {
             print("Error: could not create Vision model")
             return
         }

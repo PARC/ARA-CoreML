@@ -11,8 +11,6 @@
 		0D51402F26A5A88600CEE1DD /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D51402E26A5A88600CEE1DD /* LoginVC.swift */; };
 		0D51403226A5D23000CEE1DD /* LocalModelsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D51403126A5D23000CEE1DD /* LocalModelsVC.swift */; };
 		0D51403726A6E51500CEE1DD /* APIConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D51403626A6E51500CEE1DD /* APIConfiguration.swift */; };
-		0D682046269DE34C00945767 /* yolo-v3-tiny-416x416-face-detector.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 0D682045269DE34C00945767 /* yolo-v3-tiny-416x416-face-detector.mlmodel */; };
-		0D682048269DE35200945767 /* class_mapping.json in Resources */ = {isa = PBXBuildFile; fileRef = 0D682047269DE35200945767 /* class_mapping.json */; };
 		0D712D8D269F8E490031D2E3 /* yolo_model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D712D8C269F8E490031D2E3 /* yolo_model.swift */; };
 		0DB4AA8C26B07252001F5CD3 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB4AA8B26B07252001F5CD3 /* APIManager.swift */; };
 		0DB4AA8E26B072C5001F5CD3 /* KeyChainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB4AA8D26B072C5001F5CD3 /* KeyChainManager.swift */; };
@@ -60,8 +58,6 @@
 		0D51402E26A5A88600CEE1DD /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		0D51403126A5D23000CEE1DD /* LocalModelsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalModelsVC.swift; sourceTree = "<group>"; };
 		0D51403626A6E51500CEE1DD /* APIConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIConfiguration.swift; sourceTree = "<group>"; };
-		0D682045269DE34C00945767 /* yolo-v3-tiny-416x416-face-detector.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = "yolo-v3-tiny-416x416-face-detector.mlmodel"; sourceTree = "<group>"; };
-		0D682047269DE35200945767 /* class_mapping.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = class_mapping.json; sourceTree = "<group>"; };
 		0D712D8C269F8E490031D2E3 /* yolo_model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = yolo_model.swift; sourceTree = "<group>"; };
 		0DB4AA8B26B07252001F5CD3 /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		0DB4AA8D26B072C5001F5CD3 /* KeyChainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainManager.swift; sourceTree = "<group>"; };
@@ -233,8 +229,6 @@
 			children = (
 				89BBF9CC268E9B6100FA46B6 /* YOLO.swift */,
 				0D712D8C269F8E490031D2E3 /* yolo_model.swift */,
-				0D682047269DE35200945767 /* class_mapping.json */,
-				0D682045269DE34C00945767 /* yolo-v3-tiny-416x416-face-detector.mlmodel */,
 			);
 			path = MLModels;
 			sourceTree = "<group>";
@@ -450,7 +444,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0D682048269DE35200945767 /* class_mapping.json in Resources */,
 				89BBF9BD268E9AE400FA46B6 /* Assets.xcassets in Resources */,
 				0D51402926A5995200CEE1DD /* Launch Screen.storyboard in Resources */,
 				89BBF9EC268E9F6200FA46B6 /* Main.storyboard in Resources */,
@@ -512,7 +505,6 @@
 				89BBF9D5268E9B6100FA46B6 /* BoundingBox.swift in Sources */,
 				0DB4AAA726B29CB4001F5CD3 /* Scene.swift in Sources */,
 				89BBF9D8268E9B6100FA46B6 /* CVPixelBuffer+Helpers.swift in Sources */,
-				0D682046269DE34C00945767 /* yolo-v3-tiny-416x416-face-detector.mlmodel in Sources */,
 				0DB4AAB626B2BF9B001F5CD3 /* ExperimentsViewModel.swift in Sources */,
 				0D712D8D269F8E490031D2E3 /* yolo_model.swift in Sources */,
 				0DFA24DD26A6E69F0014CD6E /* APIRouter.swift in Sources */,
@@ -676,7 +668,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"ALTOAI-Detect/Preview Content\"";
 				DEVELOPMENT_TEAM = 77BN2H677F;
 				ENABLE_PREVIEWS = YES;
@@ -686,7 +678,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.0.2;
+				MARKETING_VERSION = 0.0.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.star.parc.altoaidetect;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -701,7 +693,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"ALTOAI-Detect/Preview Content\"";
 				DEVELOPMENT_TEAM = 77BN2H677F;
 				ENABLE_PREVIEWS = YES;
@@ -711,7 +703,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.0.2;
+				MARKETING_VERSION = 0.0.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.star.parc.altoaidetect;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

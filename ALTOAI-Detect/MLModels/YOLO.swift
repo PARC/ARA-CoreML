@@ -8,7 +8,7 @@ class YOLO {
     var maxBoundingBoxes = 20
     var numClasses = 1
     
-    var labels = ["face"]
+    var labels : [String] = []
     
     // Tweak these values to get more or fewer predictions.
     var confidenceThreshold: Float = 0.6
@@ -20,12 +20,11 @@ class YOLO {
         let rect: CGRect
     }
     
-    var model : yolo_model = yolo_model(model: yolo_v3_tiny_416x416_face_detector().model)
-    
+    var model : yolo_model?
     public init() { }
     
     public func predict(image: CVPixelBuffer) throws -> [Prediction] {
-        if let output = try? model.prediction(inputs: image) {
+        if let output = try? model?.prediction(inputs: image) {
             return computeBoundingBoxes(features: output.predictions)
         } else {
             return []
