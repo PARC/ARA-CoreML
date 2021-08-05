@@ -38,8 +38,8 @@
 //            apiKeyTxtFld.text = "9a80daf6-d53d-433a-81f7-45ad1b6fc448"
 //            apiSecretTxtFld.text = "2980aa95-0114-49fb-aa2e-beb40c8510b8"
             
-            apiKeyTxtFld.text = "a6cec2e6-bdae-431f-b664-355c2ca31f27"
-            apiSecretTxtFld.text = "ee2f5923-f086-4cdb-9593-17cfac9b5bb4"
+//            apiKeyTxtFld.text = "a6cec2e6-bdae-431f-b664-355c2ca31f27"
+//            apiSecretTxtFld.text = "ee2f5923-f086-4cdb-9593-17cfac9b5bb4"
             
             enterBtn.setTitleColor(UIColor.white, for:.normal)
             enterBtn.setTitleColor(UIColor.init(red: 60/256.0, green: 60/256.0, blue: 67/256.0, alpha: 0.3), for:.disabled)
