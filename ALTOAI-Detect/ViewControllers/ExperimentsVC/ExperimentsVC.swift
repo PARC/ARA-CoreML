@@ -14,6 +14,8 @@ class ExperimentsVC : UIViewController, UITableViewDelegate, UITableViewDataSour
     
     let refreshControl = UIRefreshControl()
     
+    var isLoading = false
+    
     lazy var viewModel: ExperimentsViewModel = {
         return ExperimentsViewModel()
     }()
@@ -49,10 +51,12 @@ class ExperimentsVC : UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func loadData(animated: Bool = true) {
-        tableView.activityStartAnimating()
+        self.displayAnimatedActivityIndicatorView()
+        isLoading = true
         viewModel.getData { _ in
+            self.isLoading = false
             self.refreshControl.endRefreshing()
-            self.tableView.activityStopAnimating()
+            self.hideAnimatedActivityIndicatorView()
             self.tableView.reloadData()
         }
     }
@@ -75,7 +79,7 @@ class ExperimentsVC : UIViewController, UITableViewDelegate, UITableViewDataSour
             let count = viewModel.objects?.count ?? 0
             
             if count == 0 {
-                self.tableView.setEmptyMessage("No available experiments")
+                self.tableView.setEmptyMessage(isLoading ? "Loading..." : "No available experiments")
             } else {
                 self.tableView.restore()
             }
@@ -93,6 +97,7 @@ class ExperimentsVC : UIViewController, UITableViewDelegate, UITableViewDataSour
    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.performSegue(withIdentifier: "toExperimentRuns", sender: self)
+        tableView.deselectRow(at: indexPath, animated: false)
     }
     
     @IBSegueAction func makeExperimentRunVC(_ coder: NSCoder) -> ExperimentRunVC? {

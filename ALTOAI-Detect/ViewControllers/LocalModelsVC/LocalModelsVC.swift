@@ -10,19 +10,46 @@ import Vision
 import ZIPFoundation
 import AVFoundation
 
-class LocalModelsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIDocumentPickerDelegate {
+class LocalModelsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIDocumentPickerDelegate, LocalModelTableViewCellDelegate {
    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var browseButton: UIButton!
     @IBOutlet weak var addButton: UIButton!
     @IBOutlet weak var descriptionLabel: UILabel!
     
+    lazy var viewModel: LocalViewModel = {
+        return LocalViewModel()
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        tableView.tableFooterView = UIView(frame: .zero)
+        tableView.layoutMargins = UIEdgeInsets.zero
+        tableView.separatorInset = UIEdgeInsets.zero
+        tableView.layoutMargins = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0)
+        
+        loadData()
+    }
+    
+    func loadData(animated: Bool = true) {
+        displayAnimatedActivityIndicatorView()
+        viewModel.getData()
+        
+        let hasData = viewModel.objects?.count ?? 0 > 0
+
+        tableView.isHidden = !hasData
+        browseButton.isHidden = hasData
+        addButton.isHidden = !hasData
+        descriptionLabel.isHidden = hasData
+        
+        self.tableView.reloadData()
+
+        hideAnimatedActivityIndicatorView()
     }
     
     @IBAction func addPressed(_ sender: Any) {
-        
+        openDocumentsPicker()
     }
     
     @IBAction func browsePressed(_ sender: Any) {
@@ -37,31 +64,70 @@ class LocalModelsVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         self.present(documentPickerController, animated: true)
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "myCell", for: indexPath)// as! ourCell
-        return cell
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        let count = viewModel.objects?.count ?? 0
+        return count
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "localModelCell", for: indexPath) as! LocalModelTableViewCell
+        cell.delegate = self
+        if let object = viewModel.objects?[indexPath.row] {
+            cell.titleLabel?.text = object
+            cell.runButton.isEnabled = true
+        }
+        return cell
+    }
+   
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let object = viewModel.objects?[indexPath.row] {
+            let alert = UIAlertController(title: "Delete download?", message: "Downloaded model will be deleted, you may download it again anytime", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { _ in
+                self.viewModel.removeModel(name: object)
+                self.loadData()
+                self.tableView.reloadData()
+            }))
+            self.present(alert, animated: true)
+        }
+        tableView.deselectRow(at: indexPath, animated: false)
+    }
+    
+    func didTapLocalModelRunButtonInCell(cell: LocalModelTableViewCell) {
+        if let indexPath = tableView.indexPath(for: cell), let object = viewModel.objects?[indexPath.row] {
+            self.displayAnimatedActivityIndicatorView()
+            viewModel.openModel(name: object) { (yolo, errorString) in
+                self.hideAnimatedActivityIndicatorView()
+                if let yolo = yolo {
+                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                    
+                    if let cameraVC = storyboard.instantiateViewController(withIdentifier: "CameraVCID") as? CameraVC {
+                        cameraVC.yolo = yolo
+                        cameraVC.modalPresentationStyle = .fullScreen
+                        self.present(cameraVC, animated: true, completion: nil)
+                    }
+                } else {
+                    let alert = UIAlertController(title: nil, message: errorString, preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    self.present(alert, animated: true)
+                }
+            }
+        }
     }
     
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
-        view.activityStartAnimating()
-        ModelExtractor.getModelFromArchive(urls.first!) { yolo in
-            if let yolo = yolo {
-                let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                
-                if let cameraVC = storyboard.instantiateViewController(withIdentifier: "CameraVCID") as? CameraVC {
-                    cameraVC.yolo = yolo
-                    cameraVC.modalPresentationStyle = .fullScreen
-                    self.present(cameraVC, animated: true, completion: nil)
-                }
+        self.displayAnimatedActivityIndicatorView()
+        ModelOperationsHelper.getModelFromArchive(urls.first!, isLocal: true) { yolo in
+            self.hideAnimatedActivityIndicatorView()
+            if let _ = yolo {
+                self.loadData()
+                self.tableView.reloadData()
             } else {
                 let alert = UIAlertController(title: nil, message: "Your zip archive doesn't contain model and json file", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                 self.present(alert, animated: true)
             }
+            
         }
     }
 }

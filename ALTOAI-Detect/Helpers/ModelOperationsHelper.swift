@@ -8,13 +8,22 @@
 import Foundation
 import Vision
 
-class ModelExtractor {
+class ModelOperationsHelper {
     
-    class func getModelFromArchive(_ zipURL:URL, completion: ((YOLO?) -> Void)? = nil) {
+    class func getModelFromArchive(_ zipURL:URL, isLocal:Bool = false, completion: ((YOLO?) -> Void)? = nil) {
         //guard let zipURL = zipURL else { return }
         
         let fileManager = FileManager()
         var destinationURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        if (isLocal) {
+            destinationURL = destinationURL.appendingPathComponent("LocalModels")
+            
+            do {
+                try FileManager.default.createDirectory(atPath: destinationURL.path, withIntermediateDirectories: true, attributes: nil)
+            } catch let error as NSError {
+                NSLog("Unable to create directory \(error.debugDescription)")
+            }
+        }
         
         destinationURL.appendPathComponent(zipURL.deletingPathExtension().lastPathComponent)
         do {
@@ -90,6 +99,6 @@ class ModelExtractor {
             }
         }
         
-        completion(jsonLoaded && modelLoaded ? yolo :nil)
+        completion(jsonLoaded && modelLoaded ? yolo : nil)
     }
 }

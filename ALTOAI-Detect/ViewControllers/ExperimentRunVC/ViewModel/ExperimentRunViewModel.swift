@@ -30,6 +30,20 @@ class ExperimentRunViewModel {
         }
     }
     
+    func removeModel(runId: String) {
+        guard let experimentId = experiment?.id else {return}
+        
+        let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        
+        let zipURL = documentsURL.appendingPathComponent("\(experimentId)-\(runId).zip")
+        let modelDirURL = documentsURL.appendingPathComponent("\(experimentId)-\(runId)")
+        
+        let fileManager = FileManager.default
+        
+        try? fileManager.removeItem(at: zipURL)
+        try? fileManager.removeItem(at: modelDirURL)
+    }
+    
     func downloadModelIfNeeded(experimentRunId: String, completion: @escaping ((YOLO?, String?) -> Void)) {
         guard let experimentId = experiment?.id else {return}
         
@@ -39,7 +53,7 @@ class ExperimentRunViewModel {
             } else {
                 APIManager.shared.downloadModel(experimentId: experimentId, runId: experimentRunId) { zipURL in
                     if let zipURL = zipURL {
-                        ModelExtractor.getModelFromArchive(zipURL) { yolo in
+                        ModelOperationsHelper.getModelFromArchive(zipURL) { yolo in
                             if let yolo = yolo {
                                 completion(yolo, nil)
                             } else {
@@ -57,11 +71,11 @@ class ExperimentRunViewModel {
     func checkIfModelDownloaded(experimentId: String, runId: String, completion: @escaping ((YOLO?) -> Void)) {
         let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
         
-       // let zipURL = documentsURL.appendingPathComponent("\(experimentId)-\(runId).zip")
+        // let zipURL = documentsURL.appendingPathComponent("\(experimentId)-\(runId).zip")
         let modelDirURL = documentsURL.appendingPathComponent("\(experimentId)-\(runId)")
-       // let jsonURL = documentsURL.appendingPathComponent("\(experimentId)-\(runId)\\")
-        ModelExtractor.checkDirectoryContainModelAndJSON(at: modelDirURL) { yolo in
-             completion(yolo)
+        // let jsonURL = documentsURL.appendingPathComponent("\(experimentId)-\(runId)\\")
+        ModelOperationsHelper.checkDirectoryContainModelAndJSON(at: modelDirURL) { yolo in
+            completion(yolo)
         }
     }
 }

@@ -74,9 +74,9 @@
         //Mark IBACTIONS
         @IBAction func login(_ sender: Any) {
             guard let apiKey = apiKeyTxtFld.text, let apiSecret = apiSecretTxtFld.text else { return }
-            view.activityStartAnimating()
+            self.displayAnimatedActivityIndicatorView()
             APIManager.shared.authorize(apiKey: apiKey, apiSecret: apiSecret) { (isSuccess, error) in
-                self.view.activityStopAnimating()
+                self.hideAnimatedActivityIndicatorView()
                 
                 if (isSuccess) {
                     self.performSegue(withIdentifier: "toProjects", sender: self)

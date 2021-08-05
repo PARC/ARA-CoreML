@@ -15,6 +15,8 @@ class ProjectsVC : UIViewController, UITableViewDelegate, UITableViewDataSource 
     
     let refreshControl = UIRefreshControl()
     
+    var isLoading = false
+    
     lazy var viewModel: ProjectsViewModel = {
         return ProjectsViewModel()
     }()
@@ -50,10 +52,12 @@ class ProjectsVC : UIViewController, UITableViewDelegate, UITableViewDataSource 
     }
     
     func loadData(animated: Bool = true) {
-        tableView.activityStartAnimating()
+        self.displayAnimatedActivityIndicatorView()
+        isLoading = true
         viewModel.getData { _ in
+            self.isLoading = false
             self.refreshControl.endRefreshing()
-            self.tableView.activityStopAnimating()
+            self.hideAnimatedActivityIndicatorView()
             self.tableView.reloadData()
         }
     }
@@ -76,7 +80,7 @@ class ProjectsVC : UIViewController, UITableViewDelegate, UITableViewDataSource 
         let count = viewModel.objects?.count ?? 0
         
         if count == 0 {
-            self.tableView.setEmptyMessage("No available projects")
+            self.tableView.setEmptyMessage(isLoading ? "Loading..." : "No available projects")
         } else {
             self.tableView.restore()
         }
@@ -92,6 +96,7 @@ class ProjectsVC : UIViewController, UITableViewDelegate, UITableViewDataSource 
    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.performSegue(withIdentifier: "toScenes", sender: self)
+        tableView.deselectRow(at: indexPath, animated: false)
     }
     
     @IBSegueAction func makeScenesVC(_ coder: NSCoder) -> ScenesVC? {

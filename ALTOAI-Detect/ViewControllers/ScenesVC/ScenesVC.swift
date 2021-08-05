@@ -13,6 +13,8 @@ class ScenesVC : UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     let refreshControl = UIRefreshControl()
     
+    var isLoading = false
+    
     lazy var viewModel: ScenesViewModel = {
         return ScenesViewModel()
     }()
@@ -48,10 +50,12 @@ class ScenesVC : UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     func loadData(animated: Bool = true) {
-        tableView.activityStartAnimating()
+        self.displayAnimatedActivityIndicatorView()
+        isLoading = true
         viewModel.getData { _ in
+            self.isLoading = false
             self.refreshControl.endRefreshing()
-            self.tableView.activityStopAnimating()
+            self.hideAnimatedActivityIndicatorView()
             self.tableView.reloadData()
         }
     }
@@ -74,7 +78,7 @@ class ScenesVC : UIViewController, UITableViewDelegate, UITableViewDataSource {
         let count = viewModel.objects?.count ?? 0
         
         if count == 0 {
-            self.tableView.setEmptyMessage("No available scenes")
+            self.tableView.setEmptyMessage(isLoading ? "Loading..." : "No available scenes")
         } else {
             self.tableView.restore()
         }
@@ -92,6 +96,7 @@ class ScenesVC : UIViewController, UITableViewDelegate, UITableViewDataSource {
    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.performSegue(withIdentifier: "toExperiments", sender: self)
+        tableView.deselectRow(at: indexPath, animated: false)
     }
     
     @IBSegueAction func makeExperimentsVC(_ coder: NSCoder) -> ExperimentsVC? {

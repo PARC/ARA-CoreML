@@ -8,11 +8,13 @@
 import Foundation
 import UIKit
 
-class ExperimentRunVC : UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ExperimentRunVC : UIViewController, UITableViewDelegate, UITableViewDataSource, ExperimentRunTableViewCellDelegate {
     
     @IBOutlet weak var tableView: UITableView!
     
     let refreshControl = UIRefreshControl()
+    
+    var isLoading = false
     
     lazy var viewModel: ExperimentRunViewModel = {
         return ExperimentRunViewModel()
@@ -49,51 +51,90 @@ class ExperimentRunVC : UIViewController, UITableViewDelegate, UITableViewDataSo
     }
     
     func loadData(animated: Bool = true) {
-        tableView.activityStartAnimating()
+        self.displayAnimatedActivityIndicatorView()
+        isLoading = true
         viewModel.getData { _ in
+            self.isLoading = false
             self.refreshControl.endRefreshing()
-            self.tableView.activityStopAnimating()
+            self.hideAnimatedActivityIndicatorView()
             self.tableView.reloadData()
         }
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-            guard let count = viewModel.objects?.count, count > 0 else {
-                return nil
-            }
-            return TableViewHeader.tblHeader("EXPERIMENT RUNS", width: tableView.frame.width)
+        guard let count = viewModel.objects?.count, count > 0 else {
+            return nil
+        }
+        return TableViewHeader.tblHeader("EXPERIMENT RUNS", width: tableView.frame.width)
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        guard let count = viewModel.objects?.count, count > 0 else {
+            return 0
+        }
+        return 40
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        let count = viewModel.objects?.count ?? 0
+        
+        if count == 0 {
+            self.tableView.setEmptyMessage(isLoading ? "Loading..." : "No available experiment runs")
+        } else {
+            self.tableView.restore()
         }
         
-        func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-            guard let count = viewModel.objects?.count, count > 0 else {
-                return 0
-            }
-            return 40
-        }
-        
-        func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            let count = viewModel.objects?.count ?? 0
-            
-            if count == 0 {
-                self.tableView.setEmptyMessage("No available experiment runs")
-            } else {
-                self.tableView.restore()
-            }
-            
-            return count
-        }
+        return count
+    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "experimentRunCell", for: indexPath) //as! UITableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "experimentRunCell", for: indexPath) as! ExperimentRunTableViewCell
+        cell.delegate = self
         if let object = viewModel.objects?[indexPath.row] {
-            cell.textLabel?.text = object.id
+            cell.titleLabel?.text = object.id
+            if let experimentId = viewModel.experiment?.id {
+                viewModel.checkIfModelDownloaded(experimentId: experimentId, runId: object.id) { yolo in
+                    cell.runButton.isEnabled = yolo != nil
+                    cell.statusImgView.image =  UIImage(named:yolo != nil ? "ready" : "download")
+                }
+            }
         }
         return cell
     }
    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: false)
+        
         if let object = viewModel.objects?[indexPath.row] {
+            let cell = tableView.cellForRow(at: indexPath) as! ExperimentRunTableViewCell
+            if let experimentId = viewModel.experiment?.id {
+                viewModel.checkIfModelDownloaded(experimentId: experimentId, runId: object.id) { yolo in
+                    if (yolo == nil) {
+                        cell.startLoading()
+                        self.viewModel.downloadModelIfNeeded(experimentRunId: object.id) { (yolo, errorString) in
+                            cell.stopLoading()
+                            self.tableView.reloadRows(at: [indexPath], with: .automatic)
+                        }
+                    } else {
+                        let alert = UIAlertController(title: "Delete download?", message: "Downloaded model will be deleted, you may download it again anytime", preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+                        alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { _ in
+                            self.viewModel.removeModel(runId: object.id)
+                            self.tableView.reloadRows(at: [indexPath], with: .automatic)
+                        }))
+                        self.present(alert, animated: true)
+                    }
+                }
+            }
+        }
+    }
+    
+    func didTapExperimentRunButtonInCell(cell: ExperimentRunTableViewCell) {
+        if let indexPath = tableView.indexPath(for: cell), let object = viewModel.objects?[indexPath.row] {
+            self.displayAnimatedActivityIndicatorView()
             viewModel.downloadModelIfNeeded(experimentRunId: object.id) { (yolo, errorString) in
+                self.hideAnimatedActivityIndicatorView()
+                self.tableView.reloadRows(at: [indexPath], with: .automatic)
                 if let yolo = yolo {
                     let storyboard = UIStoryboard(name: "Main", bundle: nil)
                     
@@ -108,7 +149,6 @@ class ExperimentRunVC : UIViewController, UITableViewDelegate, UITableViewDataSo
                     self.present(alert, animated: true)
                 }
             }
-            
         }
     }
 }
