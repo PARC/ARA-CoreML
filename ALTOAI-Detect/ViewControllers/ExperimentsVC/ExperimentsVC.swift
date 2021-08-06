@@ -29,6 +29,12 @@ class ExperimentsVC : UIViewController, UITableViewDelegate, UITableViewDataSour
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        loadData()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -79,7 +85,7 @@ class ExperimentsVC : UIViewController, UITableViewDelegate, UITableViewDataSour
             let count = viewModel.objects?.count ?? 0
             
             if count == 0 {
-                self.tableView.setEmptyMessage(isLoading ? "Loading..." : "No available experiments")
+                self.tableView.setEmptyMessage(isLoading ? "" : "No available experiments")
             } else {
                 self.tableView.restore()
             }

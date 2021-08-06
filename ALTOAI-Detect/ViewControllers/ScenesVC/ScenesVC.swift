@@ -28,6 +28,12 @@ class ScenesVC : UIViewController, UITableViewDelegate, UITableViewDataSource {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        loadData()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -50,12 +56,12 @@ class ScenesVC : UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     func loadData(animated: Bool = true) {
-        self.displayAnimatedActivityIndicatorView()
+        self.tableView.displayAnimatedActivityIndicatorView()
         isLoading = true
         viewModel.getData { _ in
             self.isLoading = false
             self.refreshControl.endRefreshing()
-            self.hideAnimatedActivityIndicatorView()
+            self.tableView.hideAnimatedActivityIndicatorView()
             self.tableView.reloadData()
         }
     }
@@ -78,7 +84,7 @@ class ScenesVC : UIViewController, UITableViewDelegate, UITableViewDataSource {
         let count = viewModel.objects?.count ?? 0
         
         if count == 0 {
-            self.tableView.setEmptyMessage(isLoading ? "Loading..." : "No available scenes")
+            self.tableView.setEmptyMessage(isLoading ? "" : "No available scenes")
         } else {
             self.tableView.restore()
         }

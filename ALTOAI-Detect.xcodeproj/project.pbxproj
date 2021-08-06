@@ -34,6 +34,7 @@
 		0DB4AAC026B2C63C001F5CD3 /* ExperimentRun.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB4AABF26B2C63C001F5CD3 /* ExperimentRun.swift */; };
 		0DB4AAC626B2C7B6001F5CD3 /* ExperimentRunVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB4AAC526B2C7B6001F5CD3 /* ExperimentRunVC.swift */; };
 		0DB4AAC826B2C7EB001F5CD3 /* ExperimentRunViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB4AAC726B2C7EB001F5CD3 /* ExperimentRunViewModel.swift */; };
+		0DE25C3F26BD2666001B1620 /* AltoActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE25C3E26BD2666001B1620 /* AltoActivityIndicatorView.swift */; };
 		0DE4F1DA26B2F565007053DB /* ModelOperationsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE4F1D926B2F565007053DB /* ModelOperationsHelper.swift */; };
 		0DE4F1DD26B43146007053DB /* MainTabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE4F1DC26B43146007053DB /* MainTabBarVC.swift */; };
 		0DE4F1DF26B7F0D3007053DB /* UITableView+Empty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE4F1DE26B7F0D3007053DB /* UITableView+Empty.swift */; };
@@ -84,6 +85,7 @@
 		0DB4AABF26B2C63C001F5CD3 /* ExperimentRun.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperimentRun.swift; sourceTree = "<group>"; };
 		0DB4AAC526B2C7B6001F5CD3 /* ExperimentRunVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperimentRunVC.swift; sourceTree = "<group>"; };
 		0DB4AAC726B2C7EB001F5CD3 /* ExperimentRunViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperimentRunViewModel.swift; sourceTree = "<group>"; };
+		0DE25C3E26BD2666001B1620 /* AltoActivityIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AltoActivityIndicatorView.swift; sourceTree = "<group>"; };
 		0DE4F1D926B2F565007053DB /* ModelOperationsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelOperationsHelper.swift; sourceTree = "<group>"; };
 		0DE4F1DC26B43146007053DB /* MainTabBarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarVC.swift; sourceTree = "<group>"; };
 		0DE4F1DE26B7F0D3007053DB /* UITableView+Empty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Empty.swift"; sourceTree = "<group>"; };
@@ -205,6 +207,7 @@
 				0D7ECD2726BC2045004D40DD /* ActivityIndicatorOverlay.swift */,
 				0DE4F1DE26B7F0D3007053DB /* UITableView+Empty.swift */,
 				0DE4F1E926B7FBAA007053DB /* TableViewHeader.swift */,
+				0DE25C3E26BD2666001B1620 /* AltoActivityIndicatorView.swift */,
 			);
 			path = UIHelpers;
 			sourceTree = "<group>";
@@ -544,6 +547,7 @@
 				89BBF9DB268E9B6100FA46B6 /* CameraVC.swift in Sources */,
 				0D51403226A5D23000CEE1DD /* LocalModelsVC.swift in Sources */,
 				89BBF9D9268E9B6100FA46B6 /* Helpers.swift in Sources */,
+				0DE25C3F26BD2666001B1620 /* AltoActivityIndicatorView.swift in Sources */,
 				0DE4F1E326B7F3E2007053DB /* Fonts.swift in Sources */,
 				89BBF9D3268E9B6100FA46B6 /* UIImage+CVPixelBuffer.swift in Sources */,
 				0DE4F1EA26B7FBAA007053DB /* TableViewHeader.swift in Sources */,

@@ -52,12 +52,12 @@ class ProjectsVC : UIViewController, UITableViewDelegate, UITableViewDataSource 
     }
     
     func loadData(animated: Bool = true) {
-        self.displayAnimatedActivityIndicatorView()
+        self.tableView.displayAnimatedActivityIndicatorView()
         isLoading = true
         viewModel.getData { _ in
             self.isLoading = false
             self.refreshControl.endRefreshing()
-            self.hideAnimatedActivityIndicatorView()
+            self.tableView.hideAnimatedActivityIndicatorView()
             self.tableView.reloadData()
         }
     }
@@ -80,7 +80,7 @@ class ProjectsVC : UIViewController, UITableViewDelegate, UITableViewDataSource 
         let count = viewModel.objects?.count ?? 0
         
         if count == 0 {
-            self.tableView.setEmptyMessage(isLoading ? "Loading..." : "No available projects")
+            self.tableView.setEmptyMessage(isLoading ? "" : "No available projects")
         } else {
             self.tableView.restore()
         }

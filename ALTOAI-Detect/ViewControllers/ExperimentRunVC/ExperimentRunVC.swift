@@ -29,6 +29,12 @@ class ExperimentRunVC : UIViewController, UITableViewDelegate, UITableViewDataSo
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        loadData()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -79,7 +85,7 @@ class ExperimentRunVC : UIViewController, UITableViewDelegate, UITableViewDataSo
         let count = viewModel.objects?.count ?? 0
         
         if count == 0 {
-            self.tableView.setEmptyMessage(isLoading ? "Loading..." : "No available experiment runs")
+            self.tableView.setEmptyMessage(isLoading ? "" : "No available experiment runs")
         } else {
             self.tableView.restore()
         }
@@ -131,9 +137,9 @@ class ExperimentRunVC : UIViewController, UITableViewDelegate, UITableViewDataSo
     
     func didTapExperimentRunButtonInCell(cell: ExperimentRunTableViewCell) {
         if let indexPath = tableView.indexPath(for: cell), let object = viewModel.objects?[indexPath.row] {
-            self.displayAnimatedActivityIndicatorView()
+            self.tableView.displayAnimatedActivityIndicatorView()
             viewModel.downloadModelIfNeeded(experimentRunId: object.id) { (yolo, errorString) in
-                self.hideAnimatedActivityIndicatorView()
+                self.tableView.hideAnimatedActivityIndicatorView()
                 self.tableView.reloadRows(at: [indexPath], with: .automatic)
                 if let yolo = yolo {
                     let storyboard = UIStoryboard(name: "Main", bundle: nil)

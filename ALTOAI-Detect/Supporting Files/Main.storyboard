@@ -715,10 +715,10 @@
                                                     </connections>
                                                 </button>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="download" translatesAutoresizingMaskIntoConstraints="NO" id="ODa-eK-v22">
-                                                    <rect key="frame" x="322" y="14" width="32" height="32"/>
+                                                    <rect key="frame" x="322" y="10" width="40" height="40"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="32" id="4s3-lq-cAw"/>
-                                                        <constraint firstAttribute="width" constant="32" id="Osh-5G-dB1"/>
+                                                        <constraint firstAttribute="height" constant="40" id="4s3-lq-cAw"/>
+                                                        <constraint firstAttribute="width" constant="40" id="Osh-5G-dB1"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MT7-if-fed">
@@ -733,7 +733,7 @@
                                                 <constraint firstItem="ODa-eK-v22" firstAttribute="leading" secondItem="MT7-if-fed" secondAttribute="trailing" constant="8" id="RAk-6F-r3o"/>
                                                 <constraint firstItem="ODa-eK-v22" firstAttribute="centerY" secondItem="WRM-i3-faG" secondAttribute="centerY" id="XSo-76-W0h"/>
                                                 <constraint firstItem="MT7-if-fed" firstAttribute="centerY" secondItem="WRM-i3-faG" secondAttribute="centerY" id="bQO-R8-lvm"/>
-                                                <constraint firstItem="Fum-vi-bSx" firstAttribute="leading" secondItem="ODa-eK-v22" secondAttribute="trailing" constant="8" id="hSH-pL-n72"/>
+                                                <constraint firstItem="Fum-vi-bSx" firstAttribute="leading" secondItem="ODa-eK-v22" secondAttribute="trailing" id="hSH-pL-n72"/>
                                                 <constraint firstItem="Fum-vi-bSx" firstAttribute="centerY" secondItem="WRM-i3-faG" secondAttribute="centerY" id="rId-DX-ImC"/>
                                                 <constraint firstItem="MT7-if-fed" firstAttribute="leading" secondItem="WRM-i3-faG" secondAttribute="leadingMargin" id="ten-VU-7yZ"/>
                                             </constraints>
