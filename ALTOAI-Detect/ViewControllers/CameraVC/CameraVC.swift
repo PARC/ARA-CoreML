@@ -123,7 +123,7 @@ class CameraVC: UIViewController, UIDocumentPickerDelegate {
         videoCapture = VideoCapture()
         videoCapture.delegate = self
         videoCapture.fps = 50
-        videoCapture.setUp(sessionPreset: AVCaptureSession.Preset.vga640x480) { success in
+        videoCapture.setUp(sessionPreset: AVCaptureSession.Preset.hd1280x720) { success in
             if success {
                 // Add the video preview into the UI.
                 if let previewLayer = self.videoCapture.previewLayer {
@@ -315,14 +315,11 @@ class CameraVC: UIViewController, UIDocumentPickerDelegate {
                 
                 // The predicted bounding box is in the coordinate space of the input
                 // image, which is a square image of 416x416 pixels. We want to show it
-                // on the video preview, which is as wide as the screen and has a 4:3
+                // on the video preview, which is as wide as the screen and has a 16:9
                 // aspect ratio. The video preview also may be letterboxed at the top
                 // and bottom.
                 let width = videoPreview.bounds.width
-                let height = videoPreview.bounds.height // width * 4 / 3
-                
-                //        width  = 480.0
-                //        height = 640.0
+                let height =   width * 16 / 9 // videoPreview.frame.height //
                 
                 let scaleX = width / CGFloat(yolo.inputWidth)
                 let scaleY = height / CGFloat(yolo.inputHeight)
@@ -330,7 +327,7 @@ class CameraVC: UIViewController, UIDocumentPickerDelegate {
                 //        scaleX = width / 480.0
                 //        scaleY = height / 640.0
                 
-                let top = (view.bounds.height - height) / 2
+                let top = (videoPreview.bounds.height - height) / 2
                 //print("WH show method : \(width) , \(height), \(top)")
                 
                 // Translate and scale the rectangle to our own coordinate system.
