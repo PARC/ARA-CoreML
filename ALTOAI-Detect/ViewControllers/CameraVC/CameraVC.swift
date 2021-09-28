@@ -41,16 +41,6 @@ class CameraVC: UIViewController, UIDocumentPickerDelegate {
     var frameCapturingStartTime = CACurrentMediaTime()
     let semaphore = DispatchSemaphore(value: 2)
     
-//    init(with yolo:YOLO) {
-//        self.yolo = yolo
-//        super.init(nibName: nil, bundle: nil)
-//    }
-//
-//    public required init?(coder aDecoder: NSCoder) {
-//        super.init(coder: aDecoder)
-//        self.yolo = YOLO()
-//    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -123,7 +113,8 @@ class CameraVC: UIViewController, UIDocumentPickerDelegate {
         videoCapture = VideoCapture()
         videoCapture.delegate = self
         videoCapture.fps = 50
-        videoCapture.setUp(sessionPreset: AVCaptureSession.Preset.hd1280x720) { success in
+        let preset = UIDevice.current.userInterfaceIdiom == .pad ? AVCaptureSession.Preset.vga640x480 : AVCaptureSession.Preset.hd1280x720
+        videoCapture.setUp(sessionPreset: preset) { success in
             if success {
                 // Add the video preview into the UI.
                 if let previewLayer = self.videoCapture.previewLayer {
@@ -142,6 +133,8 @@ class CameraVC: UIViewController, UIDocumentPickerDelegate {
             }
         }
     }
+    
+    // MARK: -
     
     @IBAction func backButtonPressed(_ sender: Any) {
         dismiss(animated: true, completion: nil)
@@ -189,6 +182,44 @@ class CameraVC: UIViewController, UIDocumentPickerDelegate {
         videoCapture.previewLayer?.frame = videoPreview.bounds
     }
     
+    // MARK: - Rotation Stuff
+    
+    private func updatePreviewLayer(layer: AVCaptureConnection, orientation: AVCaptureVideoOrientation) {
+        //layer.videoOrientation = orientation
+        self.videoCapture.previewLayer?.connection?.videoOrientation = orientation
+        self.videoCapture.videoOutput.connection(with: AVMediaType.video)?.videoOrientation = orientation
+        self.videoCapture.previewLayer?.frame = self.view.bounds
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        if let connection =  self.videoCapture.previewLayer?.connection  {
+            
+            let currentDevice: UIDevice = UIDevice.current
+            
+            let orientation: UIDeviceOrientation = currentDevice.orientation
+            
+            let previewLayerConnection : AVCaptureConnection = connection
+            
+            if previewLayerConnection.isVideoOrientationSupported {
+                
+                switch (orientation) {
+                case .portrait: updatePreviewLayer(layer: previewLayerConnection, orientation: .portrait)
+                                    
+                case .landscapeRight: updatePreviewLayer(layer: previewLayerConnection, orientation: .landscapeLeft)
+                                    
+                case .landscapeLeft: updatePreviewLayer(layer: previewLayerConnection, orientation: .landscapeRight)
+                                    
+                case .portraitUpsideDown: updatePreviewLayer(layer: previewLayerConnection, orientation: .portraitUpsideDown)
+                                    
+                default: updatePreviewLayer(layer: previewLayerConnection, orientation: .portrait)
+                
+                }
+            }
+        }
+    }
+    
     // MARK: - Doing inference
     
     func predict(image: UIImage) {
@@ -221,17 +252,18 @@ class CameraVC: UIViewController, UIDocumentPickerDelegate {
         
         
         DispatchQueue.global().async { [self] in
-            let fileManager = FileManager.default
-            
-            let documentsDirectory = fileManager.urls(for: .documentDirectory,
-                                                      in: .userDomainMask).first!
-            
-            // let documentsDirectory = appSupportURL.appendingPathComponent("test.png")
-            
-            let image = UIImage(ciImage: CIImage(cvPixelBuffer: resizedPixelBuffer))
-            // self.frame_num  = self.frame_num+1
-            
             if storeImage {
+                let fileManager = FileManager.default
+                
+                let documentsDirectory = fileManager.urls(for: .documentDirectory,
+                                                             in: .userDomainMask).first!
+                
+                // let documentsDirectory = appSupportURL.appendingPathComponent("test.png")
+                
+                let image = UIImage(ciImage: CIImage(cvPixelBuffer: resizedPixelBuffer))
+                // self.frame_num  = self.frame_num+1
+                
+                
                 let fileName = "resize_image_\(self.frame_num).jpg"
                 // create the destination file url to save your image
                 let fileURL = documentsDirectory.appendingPathComponent(fileName)
@@ -264,7 +296,7 @@ class CameraVC: UIViewController, UIDocumentPickerDelegate {
         startTimes.append(CACurrentMediaTime())
         
         // Vision will automatically resize the input image.
-        let handler = VNImageRequestHandler(cvPixelBuffer: pixelBuffer)
+        let handler = VNImageRequestHandler(cvPixelBuffer: pixelBuffer/*, orientation: CGImagePropertyOrientation.init(UIDevice.current.orientation)*/)
         try? handler.perform([request])
     }
     
@@ -318,25 +350,39 @@ class CameraVC: UIViewController, UIDocumentPickerDelegate {
                 // on the video preview, which is as wide as the screen and has a 16:9
                 // aspect ratio. The video preview also may be letterboxed at the top
                 // and bottom.
-                let width = videoPreview.bounds.width
-                let height =   width * 16 / 9 // videoPreview.frame.height //
+                
+                var width : CGFloat = 0
+                var height : CGFloat = 0
+                
+                let videoRatio : CGFloat = UIDevice.current.userInterfaceIdiom == .pad ? 4 / 3 : 16 / 9
+                
+                let orientation = UIDevice.current.orientation
+                let isPortrait = orientation == .portrait || orientation == .portraitUpsideDown
+                if (isPortrait) {
+                    width = videoPreview.bounds.width
+                    height = width * videoRatio
+                } else {
+                    height = videoPreview.frame.height
+                    width = height * videoRatio
+                }
                 
                 let scaleX = width / CGFloat(yolo.inputWidth)
                 let scaleY = height / CGFloat(yolo.inputHeight)
-                // print("Scaled values: \(scaleX, scaleY)")
-                //        scaleX = width / 480.0
-                //        scaleY = height / 640.0
                 
-                let top = (videoPreview.bounds.height - height) / 2
                 //print("WH show method : \(width) , \(height), \(top)")
                 
                 // Translate and scale the rectangle to our own coordinate system.
                 var rect = prediction.rect
                 rect.origin.x *= scaleX
                 rect.origin.y *= scaleY
-                rect.origin.y += top
+                if isPortrait {
+                    rect.origin.y += (videoPreview.bounds.height - height) / 2
+                } else {
+                    rect.origin.x += (videoPreview.bounds.width - width) / 2
+                }
                 rect.size.width *= scaleX
                 rect.size.height *= scaleY
+                
                 
                 // Show the bounding box.
 
@@ -394,4 +440,16 @@ extension CameraVC: VideoCaptureDelegate {
             }
         }
     }
+}
+
+extension CGImagePropertyOrientation {
+  init(_ orientation: UIDeviceOrientation) {
+    switch orientation {
+    case .landscapeRight: self = .left
+    case .landscapeLeft: self = .right
+    case .portrait: self = .down
+    case .portraitUpsideDown: self = .up
+    default: self = .up
+    }
+  }
 }
