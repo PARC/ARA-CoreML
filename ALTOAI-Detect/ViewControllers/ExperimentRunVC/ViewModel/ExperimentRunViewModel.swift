@@ -57,7 +57,7 @@ class ExperimentRunViewModel {
                             if let yolo = yolo {
                                 completion(yolo, nil)
                             } else {
-                                completion(nil, "Your zip archive doesn't contain model and json file")
+                                completion(nil, "Your zip archive is broken or doesn't contain model and json files")
                             }
                         }
                     } else {
@@ -70,12 +70,21 @@ class ExperimentRunViewModel {
     
     func checkIfModelDownloaded(experimentId: String, runId: String, completion: @escaping ((YOLO?) -> Void)) {
         let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        
-        // let zipURL = documentsURL.appendingPathComponent("\(experimentId)-\(runId).zip")
         let modelDirURL = documentsURL.appendingPathComponent("\(experimentId)-\(runId)")
+        // let zipURL = documentsURL.appendingPathComponent("\(experimentId)-\(runId).zip")
         // let jsonURL = documentsURL.appendingPathComponent("\(experimentId)-\(runId)\\")
         ModelOperationsHelper.checkDirectoryContainModelAndJSON(at: modelDirURL) { yolo in
             completion(yolo)
         }
+    }
+    
+    func checkIfModelDownloaded(experimentId: String, runId: String) -> Bool  {
+        let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        //let modelDirURL = documentsURL.appendingPathComponent("\(experimentId)-\(runId)")
+        let zipURL = documentsURL.appendingPathComponent("\(experimentId)-\(runId).zip")
+        
+        let zipExists = FileManager.default.fileExists(atPath: zipURL.path)
+        
+        return zipExists //ModelOperationsHelper.checkDirectoryContainModelAndJSON(at: modelDirURL)
     }
 }

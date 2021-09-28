@@ -40,6 +40,32 @@ class ModelOperationsHelper {
         }
     }
     
+    class func checkDirectoryContainModelAndJSON(at url:URL) -> Bool {
+        var modelExist = false
+        var jsonExist = false
+        
+        let fileManager = FileManager.default
+        guard let enumerator = fileManager.enumerator(atPath: url.path) else {
+            return false
+        }
+        
+        while let element = enumerator.nextObject() as? String {
+            if (modelExist && jsonExist) {
+                break
+            }
+            
+            if (element.hasSuffix(".mlmodel")) {
+                modelExist = true
+                continue
+            } else if (element.hasSuffix(".json")) {
+                jsonExist = true
+                continue
+            }
+        }
+        
+        return modelExist && jsonExist
+    }
+    
     class func checkDirectoryContainModelAndJSON(at url:URL, completion: ((YOLO?) -> Void)) {
         let yolo : YOLO = YOLO()
         var modelLoaded = false

@@ -80,21 +80,8 @@ class LocalModelsVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     }
    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         if let object = viewModel.objects?[indexPath.row] {
-            let alert = UIAlertController(title: "Delete download?", message: "Downloaded model will be deleted, you may download it again anytime", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-            alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { _ in
-                self.viewModel.removeModel(name: object)
-                self.loadData()
-                self.tableView.reloadData()
-            }))
-            self.present(alert, animated: true)
-        }
-        tableView.deselectRow(at: indexPath, animated: false)
-    }
-    
-    func didTapLocalModelRunButtonInCell(cell: LocalModelTableViewCell) {
-        if let indexPath = tableView.indexPath(for: cell), let object = viewModel.objects?[indexPath.row] {
             self.displayAnimatedActivityIndicatorView()
             viewModel.openModel(name: object) { (yolo, errorString) in
                 self.hideAnimatedActivityIndicatorView()
@@ -112,6 +99,31 @@ class LocalModelsVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                     self.present(alert, animated: true)
                 }
             }
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if (editingStyle == .delete) {
+            if let object = viewModel.objects?[indexPath.row] {
+                let alert = UIAlertController(title: "Delete download?", message: "Downloaded model will be deleted, you may download it again anytime", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+                alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { _ in
+                    self.viewModel.removeModel(name: object)
+                    self.loadData()
+                    self.tableView.reloadData()
+                }))
+                self.present(alert, animated: true)
+            }
+        }
+    }
+    
+    func didTapLocalModelRunButtonInCell(cell: LocalModelTableViewCell) {
+        if let indexPath = tableView.indexPath(for: cell){
+            self.tableView(tableView, didSelectRowAt: indexPath)
         }
     }
     

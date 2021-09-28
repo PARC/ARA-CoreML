@@ -109,34 +109,8 @@ class ExperimentRunVC : UIViewController, UITableViewDelegate, UITableViewDataSo
     }
    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: false)
-        
+        tableView.deselectRow(at: indexPath, animated: true)
         if let object = viewModel.objects?[indexPath.row] {
-            let cell = tableView.cellForRow(at: indexPath) as! ExperimentRunTableViewCell
-            if let experimentId = viewModel.experiment?.id {
-                viewModel.checkIfModelDownloaded(experimentId: experimentId, runId: object.id) { yolo in
-                    if (yolo == nil) {
-                        cell.startLoading()
-                        self.viewModel.downloadModelIfNeeded(experimentRunId: object.id) { (yolo, errorString) in
-                            cell.stopLoading()
-                            self.tableView.reloadRows(at: [indexPath], with: .automatic)
-                        }
-                    } else {
-                        let alert = UIAlertController(title: "Delete download?", message: "Downloaded model will be deleted, you may download it again anytime", preferredStyle: .alert)
-                        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-                        alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { _ in
-                            self.viewModel.removeModel(runId: object.id)
-                            self.tableView.reloadRows(at: [indexPath], with: .automatic)
-                        }))
-                        self.present(alert, animated: true)
-                    }
-                }
-            }
-        }
-    }
-    
-    func didTapExperimentRunButtonInCell(cell: ExperimentRunTableViewCell) {
-        if let indexPath = tableView.indexPath(for: cell), let object = viewModel.objects?[indexPath.row] {
             self.tableView.displayAnimatedActivityIndicatorView()
             viewModel.downloadModelIfNeeded(experimentRunId: object.id) { (yolo, errorString) in
                 self.tableView.hideAnimatedActivityIndicatorView()
@@ -155,6 +129,33 @@ class ExperimentRunVC : UIViewController, UITableViewDelegate, UITableViewDataSo
                     self.present(alert, animated: true)
                 }
             }
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        if let objectId = viewModel.objects?[indexPath.row].id, let experimentId = viewModel.experiment?.id {
+            return self.viewModel.checkIfModelDownloaded(experimentId: experimentId, runId: objectId)
+        }
+        return false
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if (editingStyle == .delete) {
+            if let object = viewModel.objects?[indexPath.row] {
+                let alert = UIAlertController(title: "Delete download?", message: "Downloaded model will be deleted, you may download it again anytime", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+                alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { _ in
+                    self.viewModel.removeModel(runId: object.id)
+                    self.tableView.reloadRows(at: [indexPath], with: .automatic)
+                }))
+                self.present(alert, animated: true)
+            }
+        }
+    }
+    
+    func didTapExperimentRunButtonInCell(cell: ExperimentRunTableViewCell) {
+        if let indexPath = tableView.indexPath(for: cell){
+            self.tableView(tableView, didSelectRowAt: indexPath)
         }
     }
 }
