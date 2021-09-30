@@ -51,6 +51,14 @@ class ProjectsVC : UIViewController, UITableViewDelegate, UITableViewDataSource 
         navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            return .portrait
+        } else {
+            return .all
+        }
+    }
+    
     func loadData(animated: Bool = true) {
         self.tableView.displayAnimatedActivityIndicatorView()
         isLoading = true

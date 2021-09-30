@@ -52,6 +52,14 @@ class ExperimentsVC : UIViewController, UITableViewDelegate, UITableViewDataSour
         loadData()
     }
     
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            return .portrait
+        } else {
+            return .all
+        }
+    }
+    
     @objc func refresh(_ sender: AnyObject) {
         loadData()
     }
