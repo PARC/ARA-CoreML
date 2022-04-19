@@ -106,7 +106,7 @@ class CameraVC: UIViewController, UIDocumentPickerDelegate {
         // NOTE: If you choose another crop/scale option, then you must also
         // change how the BoundingBox objects get scaled when they are drawn.
         // Currently they assume the full input image is used.
-        request.imageCropAndScaleOption = .scaleFill
+        request.imageCropAndScaleOption = .centerCrop //Fixing for PTG demo
     }
     
     func setUpCamera() {
