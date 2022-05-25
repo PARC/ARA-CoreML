@@ -235,6 +235,10 @@ class CameraVC: UIViewController, UIDocumentPickerDelegate {
         // Resize the input with Core Image to 416x416.
         guard let resizedPixelBuffer = resizedPixelBuffer else { return }
         let ciImage = CIImage(cvPixelBuffer: pixelBuffer)
+        let tmpW = CGFloat(CVPixelBufferGetWidth(pixelBuffer))
+        let tmpH = CGFloat(CVPixelBufferGetHeight(pixelBuffer))
+        let yoloW = CGFloat(yolo.inputWidth)
+        let yoloH = CGFloat(yolo.inputHeight)
         let sx = CGFloat(yolo.inputWidth) / CGFloat(CVPixelBufferGetWidth(pixelBuffer))
         let sy = CGFloat(yolo.inputHeight) / CGFloat(CVPixelBufferGetHeight(pixelBuffer))
         let scaleTransform = CGAffineTransform(scaleX: sx, y: sy)
@@ -257,13 +261,18 @@ class CameraVC: UIViewController, UIDocumentPickerDelegate {
                 
                 let documentsDirectory = fileManager.urls(for: .documentDirectory,
                                                              in: .userDomainMask).first!
-                let image = UIImage(ciImage: CIImage(cvPixelBuffer: pixelBuffer))
-                let fileName = "image_\(self.frame_num).jpg"
+                // to get images of correct dimensions instead of 2x
+                let ciImage = CIImage(cvPixelBuffer: pixelBuffer)
+                let ciContext = CIContext()
+                guard let cgImage = ciContext.createCGImage(ciImage, from: ciImage.extent) else {return}
+                let image = UIImage(cgImage: cgImage)
+                //let image = UIImage(ciImage: CIImage(cvPixelBuffer: pixelBuffer))
+                let fileName = "image_\(self.frame_num).png"
                 // create the destination file url to save your image
                 let fileURL = documentsDirectory.appendingPathComponent(fileName)
                 // get your UIImage jpeg data representation and check if the destination file url already exists
                 if self.frame_num % 50 == 0,
-                   let data = image.jpegData(compressionQuality: 1.0),
+                   let data = image.pngData(),
                    !FileManager.default.fileExists(atPath: fileURL.path) {
                     do {
                         // writes the image data to disk
@@ -276,17 +285,21 @@ class CameraVC: UIViewController, UIDocumentPickerDelegate {
                 }
                 
                 // let documentsDirectory = appSupportURL.appendingPathComponent("test.png")
-                
-                let resizeimage = UIImage(ciImage: CIImage(cvPixelBuffer: resizedPixelBuffer))
+                // to get images of correct dimensions instead of 2x
+                let ciResizeImage = CIImage(cvPixelBuffer: resizedPixelBuffer)
+                //let ciContext = CIContext()
+                guard let cgResizeImage = ciContext.createCGImage(ciResizeImage, from: ciResizeImage.extent) else {return}
+                let resizeimage = UIImage(cgImage: cgResizeImage)
+                //let resizeimage = UIImage(ciImage: CIImage(cvPixelBuffer: resizedPixelBuffer))
                 // self.frame_num  = self.frame_num+1
                 
                 
-                let resizefileName = "resize_image_\(self.frame_num).jpg"
+                let resizefileName = "resize_image_\(self.frame_num).png"
                 // create the destination file url to save your image
                 let resizefileURL = documentsDirectory.appendingPathComponent(resizefileName)
                 // get your UIImage jpeg data representation and check if the destination file url already exists
                 if self.frame_num % 50 == 0,
-                   let data = resizeimage.jpegData(compressionQuality: 1.0),
+                   let data = resizeimage.pngData(),
                    !FileManager.default.fileExists(atPath: resizefileURL.path) {
                     do {
                         // writes the image data to disk
