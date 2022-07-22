@@ -55,7 +55,7 @@ class YOLO {
             
             let (detectedClass, bestClassScore) = class_probs.argmax()
 
-            let confidenceInClass = bestClassScore * confidence
+            let confidenceInClass = tc
             
             if confidenceInClass >= confidenceThreshold {
                 let rect = CGRect(x: CGFloat(tx)  - (CGFloat(tw)/2), y: CGFloat(ty) - (CGFloat(th)/2),
