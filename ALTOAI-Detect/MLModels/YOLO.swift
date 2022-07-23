@@ -45,7 +45,6 @@ class YOLO {
             let th = Float(truncating: features[3+(increment*j)])
             
             let tc = Float(truncating: features[4+(increment*j)])
-            let confidence = sigmoid(tc)
             
             var class_probs = [Float](repeating: 0, count: numClasses)
             
