@@ -45,7 +45,6 @@ class YOLO {
             let th = Float(truncating: features[3+(increment*j)])
             
             let tc = Float(truncating: features[4+(increment*j)])
-            let confidence = sigmoid(tc)
             
             var class_probs = [Float](repeating: 0, count: numClasses)
             
@@ -55,7 +54,7 @@ class YOLO {
             
             let (detectedClass, bestClassScore) = class_probs.argmax()
 
-            let confidenceInClass = bestClassScore * confidence
+            let confidenceInClass = tc
             
             if confidenceInClass >= confidenceThreshold {
                 let rect = CGRect(x: CGFloat(tx)  - (CGFloat(tw)/2), y: CGFloat(ty) - (CGFloat(th)/2),
